@@ -27,4 +27,6 @@ def load_model_from_cache(model_name: str, cache_dir: str) -> SentenceTransforme
 
     return model
 
-load_model_from_cache("Qwen/Qwen3-Embedding-0.6B", "/Users/roberto/Università/Deep learning")
+# In fondo a model_upload.py cambia così:
+if __name__ == "__main__":
+    load_model_from_cache("Qwen/Qwen3-Embedding-0.6B", "/Users/roberto/Università/Deep learning")
