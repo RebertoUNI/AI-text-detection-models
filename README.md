@@ -8,7 +8,8 @@ Uso su HPC, per esempio:
 
 ---
 
-bashpython train_fcnn.py --epochs 10 --batch-size 128 --num-workers 8 
+bash
+python train_fcnn.py --epochs 10 --batch-size 128 --num-workers 8 
 
 python train_papercnn.py --epochs 10 --batch-size 128 --num-workers 8
 
