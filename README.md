@@ -1,0 +1,4 @@
+- data_utils.py — condiviso: scarica/tokenizza l'intero dataset (non più il subset da 20000) con il tokenizer di deberta-v3-large, e cachizza il risultato su disco (./tokenized_dataset) così se lanci più job HPC non ritokenizzi ogni volta da zero.
+- train_utils.py — condiviso: loop di training con checkpoint ad ogni epoca (checkpoint_last.pt) e resume automatico se il job HPC viene interrotto o va in timeout, più checkpoint_best.pt per il modello migliore. Contiene anche extract_and_save_embeddings, che salva gli embedding delle frasi a shard (file .npz progressivi) per non saturare la RAM quando processi l'intero dataset.
+- train_fcnn.py — standalone, esegue: training FCNN → salva in checkpoint FCNN/ → estrae embedding (penultimo layer, 128-dim) su train/val/test → salva in embeddings FCNN/.
+- train_papercnn.py — stessa logica per PaperCNN → checkpoint PaperCNN/ e embeddings PaperCNN/ (embedding 256-dim, penultimo layer prima del classificatore).
