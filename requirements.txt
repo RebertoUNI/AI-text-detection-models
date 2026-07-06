@@ -1,0 +1,12 @@
+torch>=2.1
+transformers>=4.44
+datasets>=2.19
+peft>=0.11
+accelerate>=0.30
+bitsandbytes>=0.43
+scikit-learn
+numpy
+pandas
+scipy
+plotly
+# umap-learn   # opzionale: solo se usi analyze_model.py --umap

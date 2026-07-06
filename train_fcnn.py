@@ -28,7 +28,7 @@ import torch
 import torch.nn as nn
 
 from data_utils import get_dataloaders, get_full_split_loader
-from train_utils import train_one_model, extract_and_save_embeddings, setup_logging
+from train_utils import train_one_model, extract_and_save_embeddings, setup_logging, set_seed
 
 MODEL_NAME = "FCNN"
 CHECKPOINT_DIR = f"checkpoint {MODEL_NAME}"
@@ -73,6 +73,8 @@ def parse_args():
                     help="Non calcolare gli embeddings dopo il training")
     p.add_argument("--embedding-shard-size", type=int, default=50_000)
     p.add_argument("--cache-dir", type=str, default="./tokenized_dataset")
+    p.add_argument("--seed", type=int, default=42,
+                    help="Seed per riproducibilità (usato uguale su tutti i modelli per un confronto equo)")
     return p.parse_args()
 
 
@@ -82,6 +84,7 @@ def main():
     os.makedirs(CHECKPOINT_DIR, exist_ok=True)
     setup_logging(os.path.join(CHECKPOINT_DIR, "train.log"))
     logger = logging.getLogger(__name__)
+    set_seed(args.seed)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     logger.info(f"Device: {device}")

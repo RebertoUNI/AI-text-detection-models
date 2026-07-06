@@ -17,6 +17,7 @@ Funzioni condivise da tutti gli script di training per HPC:
 import os
 import json
 import logging
+import random
 import time
 
 import numpy as np
@@ -24,6 +25,20 @@ import torch
 import torch.nn as nn
 
 logger = logging.getLogger(__name__)
+
+
+def set_seed(seed: int):
+    """
+    Fissa il seed di random/numpy/torch (CPU+GPU) così i run dei diversi
+    modelli sono riproducibili e il confronto finale è più oggettivo
+    (stessa inizializzazione casuale/shuffle a parità di seed).
+    """
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    logger.info(f"Seed impostato a {seed}")
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -205,6 +220,72 @@ def extract_and_save_embeddings(model, loader, split_name, device, output_dir,
                 running_count = 0
 
     flush()  # ultimo shard parziale
+
+    meta = {
+        "split": split_name,
+        "num_shards": shard_idx,
+        "total_samples": total_samples,
+        "embedding_dim": embed_dim,
+    }
+    meta_path = os.path.join(output_dir, f"{split_name}_meta.json")
+    with open(meta_path, "w") as f:
+        json.dump(meta, f, indent=2)
+
+    logger.info(f"Embeddings '{split_name}' completati: {total_samples} campioni, "
+                f"{shard_idx} shard, dim={embed_dim}. Metadata in {meta_path}")
+
+
+def extract_and_save_embeddings_hf(embed_fn, loader, split_name, output_dir, shard_size=50_000):
+    """
+    Variante di extract_and_save_embeddings pensata per i modelli HuggingFace
+    (DeBERTa/Qwen), dove il batch è un dizionario di tensori
+    ({'input_ids', 'attention_mask', 'label'}) e la logica per calcolare
+    l'embedding (CLS token, ultimo token non-pad, ecc.) cambia da modello a
+    modello.
+
+    Parametri
+    ---------
+    embed_fn : callable(batch) -> np.ndarray (batch_size, embed_dim)
+        Funzione fornita dallo script chiamante che sa come estrarre
+        l'embedding per QUEL modello specifico.
+    loader : DataLoader su un datasets.Dataset già formattato in torch.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    buf_embeddings, buf_labels = [], []
+    shard_idx = 0
+    total_samples = 0
+    embed_dim = None
+    running_count = 0
+
+    def flush():
+        nonlocal buf_embeddings, buf_labels, shard_idx, total_samples
+        if not buf_embeddings:
+            return
+        emb = np.concatenate(buf_embeddings, axis=0)
+        lab = np.concatenate(buf_labels, axis=0)
+        shard_path = os.path.join(output_dir, f"{split_name}_shard_{shard_idx:03d}.npz")
+        np.savez_compressed(shard_path, embeddings=emb, labels=lab)
+        logger.info(f"Salvato shard {shard_path} ({emb.shape[0]} campioni)")
+        total_samples += emb.shape[0]
+        shard_idx += 1
+        buf_embeddings, buf_labels = [], []
+
+    with torch.no_grad():
+        for batch in loader:
+            emb = embed_fn(batch)
+            if embed_dim is None:
+                embed_dim = emb.shape[1]
+
+            buf_embeddings.append(emb)
+            buf_labels.append(batch["label"].cpu().numpy())
+            running_count += emb.shape[0]
+
+            if running_count >= shard_size:
+                flush()
+                running_count = 0
+
+    flush()
 
     meta = {
         "split": split_name,
