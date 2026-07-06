@@ -1,5 +1,5 @@
 torch>=2.1
-transformers>=4.44
+transformers>=4.44,<4.48   # 4.48 introduce un breaking change nel tokenizer DeBERTa su Python 3.9
 datasets>=2.19
 peft>=0.11
 accelerate>=0.30
@@ -9,4 +9,6 @@ numpy
 pandas
 scipy
 plotly
+protobuf>=3.20          # richiesto da DeBERTa tokenizer (SentencePiece .model)
+sentencepiece>=0.1.99   # richiesto da DeBERTa tokenizer
 # umap-learn   # opzionale: solo se usi analyze_model.py --umap
