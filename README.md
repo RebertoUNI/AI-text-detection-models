@@ -1,20 +1,83 @@
-- data_utils.py — condiviso: scarica/tokenizza l'intero dataset (non più il subset da 20000) con il tokenizer di deberta-v3-large, e cachizza il risultato su disco (./tokenized_dataset) così se lanci più job HPC non ritokenizzi ogni volta da zero.
-- train_utils.py — condiviso: loop di training con checkpoint ad ogni epoca (checkpoint_last.pt) e resume automatico se il job HPC viene interrotto o va in timeout, più checkpoint_best.pt per il modello migliore. Contiene anche extract_and_save_embeddings, che salva gli embedding delle frasi a shard (file .npz progressivi) per non saturare la RAM quando processi l'intero dataset.
-- train_fcnn.py — standalone, esegue: training FCNN → salva in checkpoint FCNN/ → estrae embedding (penultimo layer, 128-dim) su train/val/test → salva in embeddings FCNN/.
-- train_papercnn.py — stessa logica per PaperCNN → checkpoint PaperCNN/ e embeddings PaperCNN/ (embedding 256-dim, penultimo layer prima del classificatore).
+# AI Text Detection — training, test e confronto su HPC (ORFEO)
 
+## Struttura dei file
 
-Uso su HPC, per esempio:
+### Moduli condivisi
+- **data_utils.py** — caricamento/tokenizzazione dell'INTERO dataset (nessun sotto-campionamento). Cache separate per tokenizer diversi:
+  - `./tokenized_dataset` → usata da FCNN, PaperCNN, DeBERTa (tutti col tokenizer `deberta-v3-large`)
+  - `./tokenized_dataset_qwen` → usata solo da Qwen (tokenizer diverso)
+- **train_utils.py** — loop di training con checkpoint/resume, estrazione embeddings a shard, `set_seed()` per riproducibilità.
+- **eval_utils.py** — metriche di test (accuracy, precision, recall, F1, ROC-AUC) calcolate ALLO STESSO MODO per tutti i modelli, per un confronto oggettivo.
 
----
+### Training (uno script per modello)
+| Script | Checkpoint | Embeddings |
+|---|---|---|
+| `train_fcnn.py` | `checkpoint FCNN/` | `embeddings FCNN/` |
+| `train_papercnn.py` | `checkpoint PaperCNN/` | `embeddings PaperCNN/` |
+| `train_deberta.py` | `checkpoint daBERTa/` | `embeddings daBERTa/` |
+| `train_qwen.py` | `checkpoint Qwen/` | `embeddings Qwen/` |
 
-bash
-python train_fcnn.py --epochs 10 --batch-size 128 --num-workers 8 
+Tutti supportano `--seed` (default 42, uguale ovunque) e resume automatico se il job viene interrotto.
 
-python train_papercnn.py --epochs 10 --batch-size 128 --num-workers 8
+### Test (uno script per modello — stesso protocollo di valutazione)
+- `test_fcnn.py`, `test_papercnn.py`, `test_deberta.py`, `test_qwen.py`
+- Valutano l'intero test set col best checkpoint/adapter, salvano in `results/`:
+  - `{MODEL}_test_metrics.json` (accuracy, precision, recall, f1, roc_auc, confusion matrix)
+  - `{MODEL}_test_predictions.npz` (y_true, y_prob grezzi, utili per ROC curve dopo)
 
----
-Se il job viene killato a metà, rilanciando lo stesso comando riprende da checkpoint_last.pt senza ripartire da zero.
+### Confronto finale
+- `compare_results.py` — legge tutti i `results/*_test_metrics.json` e produce:
+  - `results/comparison_table.csv`
+  - `results/comparison_table.md`
+  - una tabella anche stampata a schermo, ordinata per F1
 
-Batch size / num_workers: 128 e 8 come default (più alti di quelli Colab, dato che l'HPC probabilmente ha più CPU/GPU/RAM), ma vanno tarati sul nodo che userai.
---embedding-shard-size (default 50.000): controlla quanti embedding tiene in RAM prima di scrivere uno shard su disco — abbassalo se il nodo ha poca memoria.
+## Perché il confronto è "oggettivo"
+
+- Stesso split di test per tutti i modelli (nessun sotto-campionamento).
+- Stessa funzione di calcolo metriche (`eval_utils.py`), stessa soglia di decisione (0.5 di default).
+- Stesso seed (42) per l'inizializzazione/shuffling di ogni training.
+- I singoli iperparametri (epochs, batch size, LR) restano specifici per architettura — FCNN/PaperCNN (10 epoche, LR 1e-3) e DeBERTa/Qwen+LoRA (3 epoche, LR 3e-4) NON sono uguali tra loro perché le architetture sono troppo diverse per condividere un'unica configurazione sensata: quello che li rende comparabili è la valutazione finale, identica per tutti.
+
+## Setup su ORFEO (una tantum)
+
+```bash
+bash setup_env.sh
+```
+Crea un virtualenv in `~/envs/ai-text-detection` e ci installa `requirements.txt`. **Verifica prima i nomi esatti dei moduli** (`module avail python`, `module avail cuda`) e correggi `setup_env.sh` di conseguenza — i nomi nello script sono placeholder plausibili, non garantiti per ORFEO.
+
+## Lancio dei job
+
+Cartella `slurm/`: uno script `.slurm` per ogni training e ogni test, più:
+- `submit_all.sh` — sottomette tutto in catena: `train_X` → `test_X` (dipendente, parte solo se il training è OK) → job finale `compare_results.py` (parte solo quando tutti i test sono completati).
+
+```bash
+bash slurm/submit_all.sh
+squeue -u $USER          # per seguire l'avanzamento
+```
+
+**Prima di lanciare, modifica nei file `.slurm`:**
+- `--account=<TUO_ACCOUNT>` → il tuo account/progetto (`sacctmgr show associations`)
+- `--partition=GPU` è già corretto (unica partizione GPU su ORFEO, nodo `gpu003`, confermato via `sinfo`)
+- `--gres=gpu:1` → verifica quante GPU e di che tipo ha `gpu003` con `scontrol show node gpu003` (o `sinfo -o "%N %G"`); se il cluster distingue i tipi (V100/A100/H100) nella sintassi GRES, es. `gpu:v100:1`, aggiorna la direttiva di conseguenza. Con **un solo nodo GPU nel cluster**, se lanci più job insieme (`submit_all.sh` ne lancia 4 in parallelo) potrebbero mettersi in coda l'uno dietro l'altro se il nodo non ha abbastanza GPU libere contemporaneamente — controlla `squeue` per vedere se restano in `PD` (pending) più a lungo del previsto.
+
+Risorse GPU assegnate di default (adattabili):
+- FCNN / PaperCNN: 1 GPU qualsiasi, 12h, modelli piccoli
+- DeBERTa+LoRA: 1 GPU (idealmente A100/H100 vista la dimensione del modello), 24h
+- Qwen+LoRA (4bit): 1 GPU, 24h — bitsandbytes 4bit richiede CUDA, non gira su CPU
+
+## Dipendenze
+
+```bash
+pip install -r requirements.txt
+```
+Non sono pre-installate sui nodi di ORFEO: vanno installate nel tuo virtualenv/conda env personale (vedi `setup_env.sh`), che poi ogni job SLURM attiva prima di eseguire lo script Python.
+
+## Pipeline generica 
+```bash
+
+python train_X.py          # per ognuno dei 4 modelli
+python test_X.py           # per ognuno dei 4 modelli
+python compare_results.py              # tabella accuracy/F1
+python analyze_model.py --model X      # per ognuno dei 4 modelli
+python compare_models_separation.py    # tabella + plot di separazione
+```

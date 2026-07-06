@@ -35,22 +35,28 @@ def get_tokenizer():
     return AutoTokenizer.from_pretrained(TOKENIZER_NAME)
 
 
-def load_and_tokenize_dataset(cache_dir: str = DEFAULT_CACHE_DIR, num_proc: int = 4):
+def load_and_tokenize_dataset_generic(tokenizer_name: str, cache_dir: str,
+                                       max_length: int = MAX_LENGTH, num_proc: int = 4):
     """
-    Carica il dataset completo (tutti gli split, tutte le righe) e lo tokenizza.
-    Se esiste già una cache su disco, la riusa invece di ritokenizzare.
+    Versione generica: tokenizza l'intero dataset con QUALSIASI tokenizer
+    (usata sia per il vocab custom di FCNN/PaperCNN, sia per i tokenizer di
+    DeBERTa e Qwen, che sono diversi tra loro e quindi vanno cachati in
+    cartelle separate).
     """
     if os.path.exists(cache_dir):
         logger.info(f"Cache trovata, carico il dataset tokenizzato da: {cache_dir}")
         return load_from_disk(cache_dir)
 
-    logger.info("Nessuna cache trovata: scarico e tokenizzo il dataset completo (può richiedere tempo)...")
+    logger.info(f"Nessuna cache trovata in '{cache_dir}': scarico e tokenizzo "
+                f"il dataset completo con '{tokenizer_name}' (può richiedere tempo)...")
     dataset = load_dataset(DATASET_NAME)
-    tokenizer = get_tokenizer()
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
 
     def tokenize_function(examples):
         texts = [t if isinstance(t, str) else "" for t in examples["text"]]
-        return tokenizer(texts, truncation=True, padding="max_length", max_length=MAX_LENGTH)
+        return tokenizer(texts, truncation=True, padding="max_length", max_length=max_length)
 
     tokenized = dataset.map(tokenize_function, batched=True, num_proc=num_proc)
 
@@ -62,6 +68,38 @@ def load_and_tokenize_dataset(cache_dir: str = DEFAULT_CACHE_DIR, num_proc: int 
     tokenized.save_to_disk(cache_dir)
     logger.info(f"Dataset tokenizzato salvato in cache: {cache_dir}")
     return tokenized
+
+
+def load_and_tokenize_dataset(cache_dir: str = DEFAULT_CACHE_DIR, num_proc: int = 4):
+    """
+    Carica il dataset completo (tutti gli split, tutte le righe) tokenizzato
+    con il tokenizer di DeBERTa-v3-large (usato anche da FCNN/PaperCNN per
+    costruire il proprio vocabolario). Se esiste già una cache su disco, la
+    riusa invece di ritokenizzare.
+    """
+    return load_and_tokenize_dataset_generic(TOKENIZER_NAME, cache_dir, MAX_LENGTH, num_proc)
+
+
+def get_hf_datasets(tokenizer_name: str, cache_dir: str, max_length: int = MAX_LENGTH,
+                     num_proc: int = 4, columns=("input_ids", "attention_mask", "label")):
+    """
+    Restituisce (train_ds, val_ds, test_ds) come oggetti datasets.Dataset
+    formattati in torch, pronti per essere passati direttamente a un
+    HuggingFace Trainer (usato dagli script train_deberta.py / train_qwen.py).
+    Nessun sotto-campionamento: vengono restituiti gli split completi.
+    """
+    tokenized = load_and_tokenize_dataset_generic(tokenizer_name, cache_dir, max_length, num_proc)
+    train_ds = tokenized["train"]
+    val_ds   = tokenized["validation"]
+    test_ds  = tokenized["test"]
+
+    cols = list(columns)
+    train_ds.set_format(type="torch", columns=cols)
+    val_ds.set_format(type="torch", columns=cols)
+    test_ds.set_format(type="torch", columns=cols)
+
+    logger.info(f"Train: {len(train_ds):,} | Val: {len(val_ds):,} | Test: {len(test_ds):,}")
+    return train_ds, val_ds, test_ds
 
 
 def get_dataloaders(batch_size: int = 64, num_workers: int = 4, cache_dir: str = DEFAULT_CACHE_DIR):
