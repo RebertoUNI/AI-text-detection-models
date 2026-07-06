@@ -72,12 +72,20 @@ pip install -r requirements.txt
 ```
 Non sono pre-installate sui nodi di ORFEO: vanno installate nel tuo virtualenv/conda env personale (vedi `setup_env.sh`), che poi ogni job SLURM attiva prima di eseguire lo script Python.
 
-## Pipeline generica 
-```bash
+## Execution pipeline
+- Environment setup on ORFEO with `setup_env.sh`, which creates a virtual environment and installs the Python dependencies from `requirements.txt` .
+- Full dataset download and tokenizer-specific caching through `data_utils.py`, so repeated jobs do not re-tokenize the dataset from scratch .
+- Training of each model through its own script, with automatic resume from checkpoint if a job is interrupted .
+- Extraction and sharded storage of intermediate embeddings for later geometric/separation analysis .
+- Testing on the full test split using a common metrics implementation in `eval_utils.py`, producing `results/{MODEL}_test_metrics.json` and `results/{MODEL}_test_predictions.npz`.
+- Aggregation of all test metrics with `compare_results.py`, which writes `results/comparison_table.csv` and `results/comparison_table.md` sorted by F1 .
+- Per-model post-hoc analysis with `analyze_model.py`, followed by cross-model comparison with `compare_models_separation.py` using saved embeddings and analysis outputs .
 
-python train_X.py          # per ognuno dei 4 modelli
-python test_X.py           # per ognuno dei 4 modelli
-python compare_results.py              # tabella accuracy/F1
-python analyze_model.py --model X      # per ognuno dei 4 modelli
-python compare_models_separation.py    # tabella + plot di separazione
+A compact command-level version of the intended execution flow is:
+```bash
+python train_X.py
+python test_X.py
+python compare_results.py
+python analyze_model.py --model X
+python compare_models_separation.py
 ```
