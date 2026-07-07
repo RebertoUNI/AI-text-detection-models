@@ -27,7 +27,7 @@ module load cuda/12.8          # versione di default su ORFEO (confermato con `m
                                 # Lo carichiamo comunque per sicurezza (nvcc/driver a disposizione).
 
 # 2. Virtualenv dedicato al progetto (nella tua home o area di progetto)
-ENV_DIR="$HOME/envs/ai-text-detection"
+ENV_DIR="$HOME/scratch/envs/ai-text-detection"
 python3 -m venv "$ENV_DIR"
 source "$ENV_DIR/bin/activate"
 
