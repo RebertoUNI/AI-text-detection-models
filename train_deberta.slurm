@@ -3,7 +3,7 @@
 #SBATCH --output=logs/train_deberta_%j.out
 #SBATCH --error=logs/train_deberta_%j.err
 #SBATCH --partition=GPU              # unica partizione GPU su ORFEO (nodo gpu003)
-#SBATCH --account=<TUO_ACCOUNT>      # TODO: sostituisci con il tuo account/progetto
+#SBATCH --account=dssc      # TODO: sostituisci con il tuo account/progetto
 #SBATCH --gres=gpu:1                 # se il cluster supporta la sintassi per tipo, es. gpu:a100:1, usala
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
