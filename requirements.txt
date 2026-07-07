@@ -9,4 +9,4 @@ numpy
 pandas
 scipy
 plotly
-# umap-learn   # opzionale: solo se usi analyze_model.py --umap
+umap-learn   # opzionale: solo se usi analyze_model.py --umap
