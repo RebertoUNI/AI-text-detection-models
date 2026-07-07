@@ -2,14 +2,16 @@
 # ─────────────────────────────────────────────────────────────────────────
 # setup_env.sh
 # ─────────────────────────────────────────────────────────────────────────
-# Da eseguire UNA SOLA VOLTA su ORFEO (su un nodo di login, non serve GPU
-# per questo passaggio) per creare l'ambiente Python usato da tutti i job.
+# NON lanciarlo direttamente sul nodo di login (`bash setup_env.sh`): il
+# login node ha limiti di RAM troppo stretti e `pip install -r
+# requirements.txt` (torch/transformers/bitsandbytes) viene ucciso
+# dall'OOM killer ("Killed"). Lancialo invece come job SLURM su un nodo di
+# calcolo:
 #
-#   bash setup_env.sh
+#   sbatch setup_env.slurm
 #
-# Moduli confermati su ORFEO (via `module avail`): nessun modulo 'python'
-# (si usa il Python di sistema), cuda disponibile in versione 11.8/12.0/
-# 12.1/12.6/12.8 (default 12.8, usata qui sotto).
+# ("Remember to do the following procedure on a computational node!" —
+# dalla documentazione ORFEO sui virtualenv Python)
 # ─────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -29,9 +31,12 @@ ENV_DIR="$HOME/envs/ai-text-detection"
 python3 -m venv "$ENV_DIR"
 source "$ENV_DIR/bin/activate"
 
-# 3. Dipendenze
+# 3. Dipendenze — installate in due passi e senza cache, per ridurre il
+#    picco di memoria usato dal resolver di pip (causa comune di OOM se
+#    lanciato per errore su un nodo di login con poca RAM disponibile)
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install --no-cache-dir "torch>=2.1"
+pip install --no-cache-dir -r requirements.txt
 
 echo ""
 echo "Ambiente creato in: $ENV_DIR"
