@@ -8,7 +8,8 @@ Viene importato da tutti gli script di training (train_fcnn.py,
 train_papercnn.py, ...) così la logica di preparazione dati è scritta una
 sola volta e resta identica tra i modelli.
 
-La tokenizzazione dell'intero dataset viene fatta una sola volta e salvata su
+La tokenizzazione dell'intero dataset (non più il subset di 20000 righe usato
+in Colab, ma TUTTO lo split 'train') viene fatta una sola volta e salvata su
 disco con `save_to_disk`, così se lo stesso nodo HPC lancia più job (uno per
 modello) non si ritokenizza da zero ogni volta.
 """
@@ -23,9 +24,7 @@ from transformers import AutoTokenizer
 logger = logging.getLogger(__name__)
 
 # ── Costanti condivise ────────────────────────────────────────────────────
-# MODIFICA: Inserisci il path della cartella in cui hai scaricato il dataset grezzo
-RAW_DATASET_PATH = "./ai_text_detection_dataset" 
-
+DATASET_NAME   = "srikanthgali/ai-text-detection-pile-cleaned"
 TOKENIZER_NAME = "microsoft/deberta-v3-large"   # stesso tokenizer usato nel notebook originale
 MAX_LENGTH     = 256
 DEFAULT_CACHE_DIR = "./tokenized_dataset"       # cartella dove viene cachato il dataset tokenizzato
@@ -37,7 +36,7 @@ def get_tokenizer():
 
 
 def load_and_tokenize_dataset_generic(tokenizer_name: str, cache_dir: str,
-                                      max_length: int = MAX_LENGTH, num_proc: int = 4):
+                                       max_length: int = MAX_LENGTH, num_proc: int = 4):
     """
     Versione generica: tokenizza l'intero dataset con QUALSIASI tokenizer
     (usata sia per il vocab custom di FCNN/PaperCNN, sia per i tokenizer di
@@ -48,16 +47,9 @@ def load_and_tokenize_dataset_generic(tokenizer_name: str, cache_dir: str,
         logger.info(f"Cache trovata, carico il dataset tokenizzato da: {cache_dir}")
         return load_from_disk(cache_dir)
 
-    # MODIFICA: Il log ora riflette il caricamento locale
-    logger.info(f"Nessuna cache trovata in '{cache_dir}': carico il dataset grezzo locale da "
-                f"'{RAW_DATASET_PATH}' e lo tokenizzo con '{tokenizer_name}' (può richiedere tempo)...")
-    
-    # MODIFICA FONDAMENTALE: Usiamo load_from_disk invece di load_dataset
-    if not os.path.exists(RAW_DATASET_PATH):
-        raise FileNotFoundError(f"Dataset grezzo non trovato in {RAW_DATASET_PATH}. Esegui prima lo script di download!")
-        
-    dataset = load_from_disk(RAW_DATASET_PATH)
-    
+    logger.info(f"Nessuna cache trovata in '{cache_dir}': scarico e tokenizzo "
+                f"il dataset completo con '{tokenizer_name}' (può richiedere tempo)...")
+    dataset = load_dataset(DATASET_NAME)
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
@@ -89,7 +81,7 @@ def load_and_tokenize_dataset(cache_dir: str = DEFAULT_CACHE_DIR, num_proc: int 
 
 
 def get_hf_datasets(tokenizer_name: str, cache_dir: str, max_length: int = MAX_LENGTH,
-                    num_proc: int = 4, columns=("input_ids", "attention_mask", "label")):
+                     num_proc: int = 4, columns=("input_ids", "attention_mask", "label")):
     """
     Restituisce (train_ds, val_ds, test_ds) come oggetti datasets.Dataset
     formattati in torch, pronti per essere passati direttamente a un
@@ -129,18 +121,24 @@ def get_dataloaders(batch_size: int = 64, num_workers: int = 4, cache_dir: str =
     logger.info(f"Train: {len(train_ds):,} | Val: {len(val_ds):,} | Test: {len(test_ds):,}")
 
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True,
-                              num_workers=num_workers, pin_memory=True, drop_last=False)
+                               num_workers=num_workers, pin_memory=True, drop_last=False,
+                               persistent_workers=(num_workers > 0),
+                               prefetch_factor=(4 if num_workers > 0 else None))
     val_loader   = DataLoader(val_ds, batch_size=batch_size, shuffle=False,
-                              num_workers=num_workers, pin_memory=True)
+                               num_workers=num_workers, pin_memory=True,
+                               persistent_workers=(num_workers > 0),
+                               prefetch_factor=(4 if num_workers > 0 else None))
     test_loader  = DataLoader(test_ds, batch_size=batch_size, shuffle=False,
-                              num_workers=num_workers, pin_memory=True)
+                               num_workers=num_workers, pin_memory=True,
+                               persistent_workers=(num_workers > 0),
+                               prefetch_factor=(4 if num_workers > 0 else None))
 
     vocab_size = get_tokenizer().vocab_size
     return train_loader, val_loader, test_loader, vocab_size
 
 
 def get_full_split_loader(split: str, batch_size: int = 64, num_workers: int = 4,
-                          cache_dir: str = DEFAULT_CACHE_DIR, shuffle: bool = False):
+                           cache_dir: str = DEFAULT_CACHE_DIR, shuffle: bool = False):
     """
     Utile per l'estrazione degli embedding: restituisce il DataLoader di un
     singolo split ('train', 'validation' o 'test') senza sotto-campionamento.
@@ -149,4 +147,4 @@ def get_full_split_loader(split: str, batch_size: int = 64, num_workers: int = 4
     ds = tokenized[split]
     ds.set_format(type="torch", columns=["input_ids", "label"])
     return DataLoader(ds, batch_size=batch_size, shuffle=shuffle,
-                      num_workers=num_workers, pin_memory=True)
+                       num_workers=num_workers, pin_memory=True)
