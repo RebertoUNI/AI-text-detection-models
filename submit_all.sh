@@ -35,6 +35,7 @@ done
 DEP_LIST=$(IFS=:; echo "${TEST_JOB_IDS[*]}")
 
 sbatch --dependency="afterok:${DEP_LIST}" --job-name=compare_results \
+       --account=dssc --partition=EPYC \
        --output=logs/compare_results_%j.out --error=logs/compare_results_%j.err \
        --time=00:10:00 --cpus-per-task=1 --mem=2G \
        --wrap="source \$HOME/envs/ai-text-detection/bin/activate && python compare_results.py"
