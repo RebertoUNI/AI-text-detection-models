@@ -11,7 +11,7 @@
 set -euo pipefail
 mkdir -p logs
 
-source "$HOME/envs/ai-text-detection/bin/activate"
+source /u/dssc/rtittoto/scratch/envs/ai-text-detection/bin/activate
 cd "$SLURM_SUBMIT_DIR"
 
 # Tokenizza per entrambi i tokenizer usati nel progetto (deberta -> FCNN/PaperCNN/daBERTa, qwen -> Qwen)
