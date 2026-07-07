@@ -3,7 +3,7 @@
 #SBATCH --output=logs/pretokenize_%j.out
 #SBATCH --error=logs/pretokenize_%j.err
 #SBATCH --partition=EPYC             # nodo CPU, 128 core: nessuna GPU necessaria per tokenizzare
-#SBATCH --account=<TUO_ACCOUNT>
+#SBATCH --account=dssc
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=64G
 #SBATCH --time=02:00:00
