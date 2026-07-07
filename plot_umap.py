@@ -50,7 +50,7 @@ UMAP_PARAMS = dict(
 )
 
 # ── 1. Download ────────────────────────────────────────────────────────────────
-log.info("Downloading embeddings from HuggingFace …")
+log.info("w)
 emb_path = hf_hub_download(repo_id=REPO_ID, repo_type=REPO_TYPE,
                             filename="train/train_embeddings.npy")
 lbl_path = hf_hub_download(repo_id=REPO_ID, repo_type=REPO_TYPE,
