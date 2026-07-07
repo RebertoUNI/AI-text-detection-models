@@ -7,21 +7,26 @@
 #
 #   bash setup_env.sh
 #
-# NOTA: i nomi esatti dei moduli (python/..., cuda/...) vanno verificati con
-#       `module avail` sul cluster: quelli sotto sono placeholder plausibili,
-#       da adattare. Consulta https://orfeo-doc.areasciencepark.it/HPC/
+# Moduli confermati su ORFEO (via `module avail`): nessun modulo 'python'
+# (si usa il Python di sistema), cuda disponibile in versione 11.8/12.0/
+# 12.1/12.6/12.8 (default 12.8, usata qui sotto).
 # ─────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
-# 1. Moduli del cluster (ADATTA I NOMI a quelli reali di ORFEO)
+# 1. Moduli del cluster
 module purge
-module load python/3.11        # <-- verifica il nome esatto con `module avail python`
-module load cuda/12.1          # <-- verifica il nome esatto con `module avail cuda`
-                                #     (bitsandbytes/torch vogliono una CUDA compatibile)
+# Nessun modulo 'python' su ORFEO (confermato con `module avail python`): si usa
+# il Python di sistema già nel PATH. Verifica la versione (serve >= 3.9):
+python3 --version
+
+module load cuda/12.8          # versione di default su ORFEO (confermato con `module avail cuda`)
+                                # In pratica quasi mai indispensabile: i wheel pip di
+                                # torch/bitsandbytes includono già il proprio runtime CUDA.
+                                # Lo carichiamo comunque per sicurezza (nvcc/driver a disposizione).
 
 # 2. Virtualenv dedicato al progetto (nella tua home o area di progetto)
 ENV_DIR="$HOME/envs/ai-text-detection"
-python -m venv "$ENV_DIR"
+python3 -m venv "$ENV_DIR"
 source "$ENV_DIR/bin/activate"
 
 # 3. Dipendenze
