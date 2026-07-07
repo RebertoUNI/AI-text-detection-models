@@ -3,7 +3,7 @@
 #SBATCH --output=logs/train_papercnn_%j.out
 #SBATCH --error=logs/train_papercnn_%j.err
 #SBATCH --partition=GPU              # unica partizione GPU su ORFEO (nodo gpu003)
-#SBATCH --account=<TUO_ACCOUNT>      # TODO: sostituisci con il tuo account/progetto
+#SBATCH --account=dssc      # TODO: sostituisci con il tuo account/progetto
 #SBATCH --gres=gpu:1                 # PaperCNN è piccola: basta 1 GPU qualsiasi (anche una V100)
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
