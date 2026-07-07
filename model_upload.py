@@ -20,7 +20,8 @@ def load_model_from_cache(model_name: str, cache_dir: str) -> SentenceTransforme
     model = SentenceTransformer(
         model_name,
         cache_folder=cache_dir,
-        local_files_only=True  # Forza uso cache locale, errore se non trovato
+        local_files_only=True,
+        model_kwargs={"attn_implementation": "eager"} # Aggiunto per evitare errori di compatibilità con alcune versioni di PyTorch su M1/M2 Mac
     )
 
     print("Model uploaded!")
