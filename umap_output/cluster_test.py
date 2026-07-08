@@ -16,12 +16,12 @@ logging.basicConfig(
 def load_and_sample_data(sample_fraction=0.05, random_seed=42):
     logging.info("Caricamento dataset da HuggingFace...")
     dataset = load_dataset("srikanthgali/ai-text-detection-pile-cleaned", split="train")
-    texts = np.array(dataset['text']) # Convertito in numpy array per indicizzazione facilitata
     
     logging.info("Caricamento UMAP embeddings (2D)...")
     umap_embeddings = np.load("umap_embeddings_2d.npy")
     
-    total_size = len(texts)
+    # Usiamo len(dataset) invece di caricare tutti i testi in memoria
+    total_size = len(dataset)
     logging.info(f"Trovate {total_size} frasi e {umap_embeddings.shape[0]} embeddings.")
     
     if total_size != umap_embeddings.shape[0]:
@@ -31,17 +31,33 @@ def load_and_sample_data(sample_fraction=0.05, random_seed=42):
     sample_size = int(total_size * sample_fraction)
     logging.info(f"Campionamento del {sample_fraction*100}%: seleziono {sample_size} elementi.")
     
-    # Fissiamo il seed per avere risultati riproducibili
+    # Generiamo gli indici casuali
     np.random.seed(random_seed)
-    
-    # Generiamo indici casuali univoci
     sampled_indices = np.random.choice(total_size, sample_size, replace=False)
     
-    # Applichiamo gli stessi indici a entrambi per mantenere l'allineamento
-    sampled_texts = texts[sampled_indices]
+    # 1. Filtriamo gli embeddings
     sampled_embeddings = umap_embeddings[sampled_indices]
     
+    # 2. Filtriamo il dataset usando il metodo nativo di HuggingFace (Zero memory overhead!)
+    logging.info("Estrazione del campione dal dataset testuale...")
+    sampled_dataset = dataset.select(sampled_indices)
+    
+    # 3. Estraiamo i testi e li tronchiamo per risparmiare memoria nel file TXT finale
+    logging.info("Troncamento delle frasi a max 50 parole...")
+    
+    def truncate_text(text, max_words=50):
+        if not isinstance(text, str):
+            return ""
+        words = text.split()
+        if len(words) > max_words:
+            return " ".join(words[:max_words]) + "..."
+        return text
+        
+    # Usiamo una list comprehension base di Python, molto più efficiente per stringhe miste
+    sampled_texts = np.array([truncate_text(t) for t in sampled_dataset['text']])
+    
     return sampled_texts, sampled_embeddings
+
 
 def tune_hdbscan(embeddings, n_jobs=8):
     logging.info("Inizio Hyperparameter Tuning per HDBSCAN (Versione Sample 5%)...")

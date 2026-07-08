@@ -1,0 +1,5 @@
+{
+    "min_cluster_size": 50,
+    "min_samples": 15,
+    "dbcv_score": 0.5258576127753767
+}
