@@ -18,8 +18,16 @@ def load_data():
     # Carichiamo solo lo split 'train'
     dataset = load_dataset("srikanthgali/ai-text-detection-pile-cleaned", split="train")
     
+    def truncate_text(text, max_words=50):
+        if not isinstance(text, str):
+            return ""
+        words = text.split()
+        if len(words) > max_words:
+            return " ".join(words[:max_words]) + "..."
+        return text
+    
     # ASSUNZIONE: La colonna contenente le frasi si chiama 'text'
-    texts = dataset['text'] 
+    texts = np.array([truncate_text(t) for t in dataset['text']])
     
     logging.info("Caricamento UMAP embeddings (2D)...")
     umap_embeddings = np.load("umap_embeddings_2d.npy")
@@ -30,7 +38,7 @@ def load_data():
     if len(texts) != umap_embeddings.shape[0]:
         raise ValueError("ERRORE: Il numero di frasi non corrisponde al numero di embeddings! "
                          "Verifica se durante l'inferenza sono stati scartati dei dati.")
-        
+
     return texts, umap_embeddings
 
 def tune_hdbscan(embeddings, n_jobs=8):
