@@ -54,7 +54,7 @@ def parse_args():
 def make_collate_fn(tokenizer, max_length):
     def collate_fn(batch):
         texts  = [str(item["text"]) if item["text"] is not None else "" for item in batch]
-        labels = [item["label"] for item in batch]
+        labels = [item["generated"] for item in batch]
         enc = tokenizer(
             texts,
             padding=True,
