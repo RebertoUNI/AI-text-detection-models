@@ -11,4 +11,4 @@
 module load cuda/12.1
 
 # Esegui lo script
-python inference_hpc.py --batch_size 256 --output_file risultati_finali.csv
+python inferenza_deberta_HPC --batch_size 256 --output_file risultati_finali.csv
