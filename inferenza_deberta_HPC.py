@@ -38,7 +38,7 @@ def parse_args():
     parser.add_argument("--dataset_id", default="srikanthgali/ai-text-detection-pile-cleaned")
     parser.add_argument("--split",      default="test")
     parser.add_argument("--text_col",   default="text",  help="Nome colonna testo nel dataset")
-    parser.add_argument("--label_col",  default="generated", help="Nome colonna label nel dataset")
+    parser.add_argument("--label_col",  default="label", help="Nome colonna label nel dataset")
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--output",     default="results.csv")
@@ -53,7 +53,7 @@ def parse_args():
 # ──────────────────────────────────────────────
 def make_collate_fn(tokenizer, max_length):
     def collate_fn(batch):
-        texts  = [item["text"]  for item in batch]
+        texts  = [str(item["text"]) if item["text"] is not None else "" for item in batch]
         labels = [item["label"] for item in batch]
         enc = tokenizer(
             texts,
@@ -114,6 +114,14 @@ def main():
     log.info("Caricamento dataset %s (split=%s) …", args.dataset_id, args.split)
     dataset = load_dataset(args.dataset_id, split=args.split)
     log.info("Campioni nel test set: %d", len(dataset))
+
+    # Filtra righe senza testo
+    n_before = len(dataset)
+    dataset = dataset.filter(lambda x: x["text"] is not None and str(x["text"]).strip() != "")
+    n_skipped = n_before - len(dataset)
+    if n_skipped:
+        log.warning("Righe scartate per testo mancante/vuoto: %d", n_skipped)
+    log.info("Campioni validi: %d", len(dataset))
 
     # Rinomina colonne se necessario
     rename_map = {}
