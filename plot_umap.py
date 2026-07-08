@@ -38,7 +38,7 @@ log = logging.getLogger(__name__)
 # ── Configurazione ─────────────────────────────────────────────────────────────
 REPO_ID    = "R-obi/ai-text-detection"
 REPO_TYPE  = "dataset"
-OUT_DIR    = Path("umap_output")
+OUT_DIR    = Path("umap_output_test")
 
 UMAP_PARAMS = dict(
     n_neighbors  = 15,
@@ -50,11 +50,11 @@ UMAP_PARAMS = dict(
 )
 
 # ── 1. Download ────────────────────────────────────────────────────────────────
-log.info("w)
+log.info("w")
 emb_path = hf_hub_download(repo_id=REPO_ID, repo_type=REPO_TYPE,
-                            filename="train/train_embeddings.npy")
+                            filename="test/test_embeddings.npy")
 lbl_path = hf_hub_download(repo_id=REPO_ID, repo_type=REPO_TYPE,
-                            filename="train/train_labels.npy")
+                            filename="test/test_labels.npy")
 
 # ── 2. Caricamento ─────────────────────────────────────────────────────────────
 log.info("Loading data …")

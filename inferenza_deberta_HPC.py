@@ -38,7 +38,7 @@ def parse_args():
     parser.add_argument("--dataset_id", default="srikanthgali/ai-text-detection-pile-cleaned")
     parser.add_argument("--split",      default="test")
     parser.add_argument("--text_col",   default="text",  help="Nome colonna testo nel dataset")
-    parser.add_argument("--label_col",  default="gerated", help="Nome colonna label nel dataset")
+    parser.add_argument("--label_col",  default="generated", help="Nome colonna label nel dataset")
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--output",     default="results.csv")
@@ -54,7 +54,7 @@ def parse_args():
 def make_collate_fn(tokenizer, max_length):
     def collate_fn(batch):
         texts  = [str(item["text"]) if item["text"] is not None else "" for item in batch]
-        labels = [item["label"] for item in batch]
+        labels = [item["generated"] for item in batch]
         enc = tokenizer(
             texts,
             padding=True,
