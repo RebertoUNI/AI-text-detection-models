@@ -38,7 +38,7 @@ def parse_args():
     parser.add_argument("--dataset_id", default="srikanthgali/ai-text-detection-pile-cleaned")
     parser.add_argument("--split",      default="test")
     parser.add_argument("--text_col",   default="text",  help="Nome colonna testo nel dataset")
-    parser.add_argument("--label_col",  default="label", help="Nome colonna label nel dataset")
+    parser.add_argument("--label_col",  default="gerated", help="Nome colonna label nel dataset")
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--output",     default="results.csv")
