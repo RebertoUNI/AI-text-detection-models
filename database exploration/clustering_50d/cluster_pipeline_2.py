@@ -6,7 +6,7 @@ import time
 from datasets import load_dataset
 from sklearn.metrics import pairwise_distances
 from pathlib import Path
-
+import os
 
 
 # Configurazione logging per HPC
@@ -97,11 +97,12 @@ def tune_hdbscan(embeddings, n_jobs=8):
             min_cluster_size=params['min_cluster_size'],
             min_samples=params['min_samples'],
             gen_min_span_tree=True,
-            core_dist_n_jobs=n_jobs
+            core_dist_n_jobs=n_jobs,
+            metric='cosine'
         )
         clusterer.fit(embeddings)
         
-        score = clusterer.relative_validity_
+        score = 0
         elapsed = time.time() - start_time
         logging.info(f"Score ottenuto: {score:.4f} (Tempo: {elapsed:.1f}s)")
 
@@ -160,7 +161,7 @@ def extract_prototypes_and_save(all_results, best_idx, embeddings, texts, top_k=
             cluster_indices = np.where(labels == cluster_id)[0]
             cluster_points  = embeddings[cluster_indices]
             centroid        = cluster_points.mean(axis=0).reshape(1, -1)
-            distances       = pairwise_distances(cluster_points, centroid, metric='euclidean').flatten()
+            distances       = pairwise_distances(cluster_points, centroid, metric='cosine').flatten()
             closest_local   = np.argsort(distances)[:top_k]
             closest_global  = cluster_indices[closest_local]
 
@@ -182,5 +183,7 @@ def extract_prototypes_and_save(all_results, best_idx, embeddings, texts, top_k=
 
 if __name__ == "__main__":
     texts, umap_embeddings,_, _ = load_data()
-    all_results, best_idx = tune_hdbscan(umap_embeddings, n_jobs=-1)
+    hpc_cpus = int(os.environ.get('SLURM_CPUS_PER_TASK', 8))
+    logging.info(f"Utilizzo rilevato di {hpc_cpus} CPU per HDBSCAN.")
+    all_results, best_idx = tune_hdbscan(umap_embeddings, n_jobs=hpc_cpus)
     extract_prototypes_and_save(all_results, best_idx, umap_embeddings, texts)
