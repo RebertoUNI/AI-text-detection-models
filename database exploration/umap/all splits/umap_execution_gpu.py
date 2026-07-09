@@ -19,15 +19,6 @@ from pathlib import Path
 import numpy as np
 from huggingface_hub import hf_hub_download
 
-try:
-    from cuml.manifold import UMAP
-    log.info("Libreria cuML (GPU) caricata con successo!")
-    USING_GPU = True
-except ImportError:
-    log.warning("cuML non trovata. Ripiego su umap-learn (CPU)...")
-    import umap
-    USING_GPU = False
-
 # ── Logging su stdout ──────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
@@ -36,6 +27,17 @@ logging.basicConfig(
     stream=sys.stdout,
 )
 log = logging.getLogger(__name__)
+
+
+
+try:
+    from cuml.manifold import UMAP
+    log.info("Libreria cuML (GPU) caricata con successo!")
+    USING_GPU = True
+except ImportError:
+    log.warning("cuML non trovata. Ripiego su umap-learn (CPU)...")
+    import umap
+    USING_GPU = False
 
 # ── Configurazione ─────────────────────────────────────────────────────────────
 REPO_ID    = "R-obi/ai-text-detection"
