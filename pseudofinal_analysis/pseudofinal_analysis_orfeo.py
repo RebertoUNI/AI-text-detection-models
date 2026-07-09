@@ -22,13 +22,18 @@ Requirements (venv):
   pip install numpy scipy pandas scikit-learn requests plotly \
               datasets transformers peft accelerate torch
 
-HPC usage:
-  # on the login node (has internet) - pre-download everything:
-  export HF_HOME=$SCRATCH/hf_cache
-  python pseudofinal_analysis_orfeo.py --download-only --data-dir $SCRATCH/umap_data
+HPC usage (ORFEO, account dssc):
+  # on the login node (has internet) - pre-download everything. Use the SAME
+  # HF_HOME / --data-dir that run_orfeo.sbatch exports (SCRATCH_DIR there),
+  # e.g.:
+  export HF_HOME=/u/dssc/rtittoto/scratch/ai-text-detection/hf_cache
+  source /u/dssc/rtittoto/scratch/envs/ai-text-detection/bin/activate
+  python pseudofinal_analysis_orfeo.py --download-only \
+      --data-dir /u/dssc/rtittoto/scratch/ai-text-detection/umap_data
 
-  # then submit the batch job (see run_orfeo.sbatch); if compute nodes have no
-  # internet, also export HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1 in the job.
+  # then submit the batch job: sbatch run_orfeo.sbatch
+  # if compute nodes have no internet, also export
+  # HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1 in the job (see run_orfeo.sbatch).
 
 The script uses every GPU that SLURM makes visible (1 or 2+ both work).
 """

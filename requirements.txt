@@ -9,4 +9,5 @@ numpy
 pandas
 scipy
 plotly
+requests     # usato da pseudofinal_analysis_orfeo.py per le API datasets-server/GitHub
 umap-learn   # opzionale: solo se usi analyze_model.py --umap
