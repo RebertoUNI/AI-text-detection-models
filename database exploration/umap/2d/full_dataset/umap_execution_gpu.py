@@ -8,8 +8,8 @@ Ottimizzato per nodo CPU EPYC (32 core).
 
 import os
 # Ottimizzazione per HPC: diciamo a Numba di usare tutti i 32 core
-os.environ["NUMBA_NUM_THREADS"] = "32"
-os.environ["OMP_NUM_THREADS"] = "32"
+os.environ["NUMBA_NUM_THREADS"] = "16"
+os.environ["OMP_NUM_THREADS"] = "16"
 
 import logging
 import sys
