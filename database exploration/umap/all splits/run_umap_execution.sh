@@ -8,10 +8,10 @@
 #SBATCH --output=job_%j.out
 #SBATCH --error=job_%j.err
 
-cd /u/dssc/rtittoto/AI-text-detection/"databas exploration"/umap
+cd /u/dssc/rtittoto/AI-text-detection-models/"databas exploration"/umap
 
 # Attiva l'ambiente virtuale
-source /u/dssc/rtittoto/scratch/envs/ai-text-detection/bin/activate
+source /u/dssc/rtittoto/scratch/envs/ai-text-detection-models/bin/activate
 
 
 pip install umap-learn
