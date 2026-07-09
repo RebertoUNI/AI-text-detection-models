@@ -109,7 +109,11 @@ if USING_GPU:
     )
 else:
     reducer = umap.UMAP(**UMAP_PARAMS)
-
+t0 = time.perf_counter()
+emb_2d = reducer.fit_transform(embeddings)
+elapsed = time.perf_counter() - t0
+log.info("UMAP done in %.1f s", elapsed)
+log.info("Output shape: %s", emb_2d.shape)
 # ── 4. Salvataggio ─────────────────────────────────────────────────────────────
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
