@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/orfeo/cephfs/home/dssc/rtittoto/AI-text-detection-models/umap_output/cluster_pipeline.py", line 2, in <module>
-    import hdbscan
-ModuleNotFoundError: No module named 'hdbscan'

@@ -1,3 +1,4 @@
 env/
 umap_output/.DS_Store
 umap_output_test
+database exploration/inferenza deberta (test split)/results.csv
