@@ -11,7 +11,7 @@
 cd /u/dssc/rtittoto/AI-text-detection/"databas exploration"/umap
 
 # Attiva l'ambiente virtuale
-source /u/dssc/rtittoto/scratch/envs/ai-text-detection-gpu/bin/activate
+source /u/dssc/rtittoto/scratch/envs/ai-text-detection/bin/activate
 
 
 pip install umap-learn
