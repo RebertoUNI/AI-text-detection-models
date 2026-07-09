@@ -5,6 +5,7 @@ import logging
 import time
 from datasets import load_dataset
 from sklearn.metrics import pairwise_distances
+from pathlib import Path
 
 
 
@@ -18,7 +19,7 @@ logging.basicConfig(
 def load_data():
     logging.info("Caricamento UMAP embeddings e metadati dal file .npz...")
     # Carichiamo il file compresso
-    data = np.load("umap_full_results.npz")
+    data = np.load('/Users/roberto/Università/Deep learning/AI-text-detection-models/database exploration/umap/full_dataset/umap_output_full/umap_full_results.npz')
     umap_embeddings = data['embeddings_2d']
     labels = data['labels']
     splits_tracker = data['splits'] # Array con scritto 'train', 'val', o 'test' per ogni punto
@@ -175,6 +176,6 @@ def extract_prototypes_and_save(all_results, best_idx, embeddings, texts, top_k=
 
 
 if __name__ == "__main__":
-    texts, umap_embeddings,labels, splits_tracker = load_data()
-    all_results, best_idx = tune_hdbscan(umap_embeddings, n_jobs=32)
+    texts, umap_embeddings,_, _ = load_data()
+    all_results, best_idx = tune_hdbscan(umap_embeddings, n_jobs=-1)
     extract_prototypes_and_save(all_results, best_idx, umap_embeddings, texts)
