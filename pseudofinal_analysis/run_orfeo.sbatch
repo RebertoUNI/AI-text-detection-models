@@ -15,9 +15,9 @@
 
 set -euo pipefail
 
-REPO_DIR="/orfeo/cephfs/home/dssc/rtittoto/AI-text-detection-models/pseudofinal_analysis"
-ENV_DIR="/u/dssc/rtittoto/scratch/envs/ai-text-detection"
-SCRATCH_DIR="/u/dssc/rtittoto/scratch/ai-text-detection"
+REPO_DIR="$HOME/AI-text-detection-models/pseudofinal_analysis"
+ENV_DIR="$HOME/scratch/envs/ai-text-detection"
+SCRATCH_DIR="$HOME/scratch/ai-text-detection"
 
 mkdir -p "${REPO_DIR}/logs"
 cd "${REPO_DIR}"

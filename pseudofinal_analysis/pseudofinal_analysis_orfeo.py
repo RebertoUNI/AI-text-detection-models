@@ -22,14 +22,14 @@ Requirements (venv):
   pip install numpy scipy pandas scikit-learn requests plotly \
               datasets transformers peft accelerate torch
 
-HPC usage (ORFEO, account dssc):
+HPC usage (ORFEO, account dssc; repo cloned under $HOME):
   # on the login node (has internet) - pre-download everything. Use the SAME
   # HF_HOME / --data-dir that run_orfeo.sbatch exports (SCRATCH_DIR there),
   # e.g.:
-  export HF_HOME=/u/dssc/rtittoto/scratch/ai-text-detection/hf_cache
-  source /u/dssc/rtittoto/scratch/envs/ai-text-detection/bin/activate
+  export HF_HOME=$HOME/scratch/ai-text-detection/hf_cache
+  source $HOME/scratch/envs/ai-text-detection/bin/activate
   python pseudofinal_analysis_orfeo.py --download-only \
-      --data-dir /u/dssc/rtittoto/scratch/ai-text-detection/umap_data
+      --data-dir $HOME/scratch/ai-text-detection/umap_data
 
   # then submit the batch job: sbatch run_orfeo.sbatch
   # if compute nodes have no internet, also export
