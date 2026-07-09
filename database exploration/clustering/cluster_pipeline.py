@@ -49,7 +49,10 @@ def tune_hdbscan(embeddings, n_jobs=8):
     param_grid = [
         {'min_cluster_size': 100, 'min_samples': 15},
         {'min_cluster_size': 300, 'min_samples': 30},
-        {'min_cluster_size': 500, 'min_samples': 50}
+        {'min_cluster_size': 500, 'min_samples': 50},
+        {'min_cluster_size': 1000, 'min_samples': 100},
+        {'min_cluster_size': 1500, 'min_samples': 150},
+        {'min_cluster_size': 1000, 'min_samples': 30}
     ]
     
     best_score = -1.0
