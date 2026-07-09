@@ -19,8 +19,8 @@ logging.basicConfig(
 def load_data():
     logging.info("Caricamento UMAP embeddings e metadati dal file .npz...")
     # Carichiamo il file compresso
-    data = np.load('/Users/roberto/Università/Deep learning/AI-text-detection-models/database exploration/umap/full_dataset/umap_output_full/umap_full_results.npz')
-    umap_embeddings = data['embeddings_2d']
+    data = np.load('umap/50d/full_dataset/umap_full_results.npz')
+    umap_embeddings = data['embeddings_50d']
     labels = data['labels']
     splits_tracker = data['splits'] # Array con scritto 'train', 'val', o 'test' per ogni punto
     
@@ -72,12 +72,17 @@ def tune_hdbscan(embeddings, n_jobs=8):
     logging.info("Inizio Hyperparameter Tuning per HDBSCAN...")
     
     param_grid = [
-        {'min_cluster_size': 100, 'min_samples': 15},
-        {'min_cluster_size': 300, 'min_samples': 30},
-        {'min_cluster_size': 500, 'min_samples': 50},
-        {'min_cluster_size': 1000, 'min_samples': 100},
-        {'min_cluster_size': 1500, 'min_samples': 150},
-        {'min_cluster_size': 1000, 'min_samples': 30}
+        # --- ESPLORAZIONE GRANULARE (Cluster piccoli e dettagliati) ---
+        {'min_cluster_size': 50, 'min_samples': 15},   # Estremo dettaglio
+        {'min_cluster_size': 150, 'min_samples': 30},  
+        
+        # --- ESPLORAZIONE MEDIA ---
+        {'min_cluster_size': 500, 'min_samples': 30},  # Bilanciato (ottimo punto di partenza)
+        {'min_cluster_size': 1000, 'min_samples': 50}, 
+        
+        # --- ESPLORAZIONE MACRO (Grandi macro-aree) ---
+        {'min_cluster_size': 3000, 'min_samples': 50},  # Macro-cluster stabili
+        {'min_cluster_size': 5000, 'min_samples': 100}
     ]
     
     all_results = []   # <-- raccoglie tutto
