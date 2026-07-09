@@ -63,7 +63,7 @@ for cluster_id in unique_labels:
     ax.text(
         centroid_x, centroid_y, 
         str(cluster_id), 
-        fontsize=9, 
+        fontsize=5, 
         fontweight='bold',
         color='black',
         ha='center',  # Allinea il testo perfettamente al centro in orizzontale
