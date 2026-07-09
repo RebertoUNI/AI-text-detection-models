@@ -56,6 +56,10 @@ parser.add_argument("--download-only", action="store_true",
                     help="download/cache all remote assets, then exit (run on login node)")
 parser.add_argument("--skip-plots", action="store_true", help="skip the Plotly HTML plots")
 parser.add_argument("--n-batches", type=int, default=500, help="SupCon training steps")
+parser.add_argument("--smoke", action="store_true",
+                    help="tiny end-to-end run (~15 min on 1 V100) to validate the "
+                         "pipeline before submitting the full job; results are NOT "
+                         "scientifically meaningful")
 args = parser.parse_args()
 
 DATA_DIR = args.data_dir
@@ -483,7 +487,7 @@ def main():
                 for name in FEATURE_NAMES}
 
     # --- v1: random 20k sample ---
-    N_SAMPLE = 20_000
+    N_SAMPLE = 2_000 if args.smoke else 20_000
     rng2 = np.random.default_rng(42)
     all_idx = np.arange(len(ds))
     human_idx = rng2.choice(all_idx[labels_full == 0], N_SAMPLE // 2, replace=False)
@@ -559,9 +563,10 @@ def main():
           np.abs(features["first_6_layers"] - features["first_8_layers"]).max())
 
     # --- v2: dedicated topic x label buckets + bootstrap CIs ---
-    TARGET_PER_TOPIC_LABEL = 1000
-    TARGET_PER_OTHER_LABEL = 2000
-    SCAN_BUDGET = 200_000
+    TARGET_PER_TOPIC_LABEL = 200 if args.smoke else 1000
+    TARGET_PER_OTHER_LABEL = 400 if args.smoke else 2000
+    SCAN_BUDGET = 200_000  # unchanged in smoke mode: perm[SCAN_BUDGET:] must
+    #                        stay disjoint from the training scan either way
 
     rng3 = np.random.default_rng(42)
     perm = rng3.permutation(len(ds))    # rows beyond SCAN_BUDGET feed the
@@ -729,9 +734,10 @@ def main():
                          + list(projection_head.parameters()))
     optimizer = torch.optim.AdamW(_trainable_params, lr=2e-4)
 
+    n_batches = min(args.n_batches, 60) if args.smoke else args.n_batches
     for step, (texts, labels_batch) in enumerate(
             stratified_batches(train_buckets, batch_size=32,
-                               n_batches=args.n_batches)):
+                               n_batches=n_batches)):
         labels_t = torch.tensor(labels_batch, device=_supcon_device)
         pooled = pooled_embedding(texts, lora_model, _supcon_device, max_length=128)
         z = projection_head(pooled)
@@ -822,7 +828,7 @@ def main():
         "season opener", "league", "scored a goal", "halftime", "home run",
     ]
     UNSEEN_TOPICS = {"science": SCIENCE_KEYWORDS, "sports": SPORTS_KEYWORDS}
-    TARGET_UNSEEN = 400
+    TARGET_UNSEEN = 100 if args.smoke else 400
 
     unseen_pool = perm[SCAN_BUDGET:]
     unseen_buckets = {(t, l): [] for t in UNSEEN_TOPICS for l in (0, 1)}
@@ -998,7 +1004,7 @@ def main():
     torch.manual_seed(42)
     fresh_gpt2_texts = []
     for p in GEN_PROMPTS:
-        fresh_gpt2_texts += generate_gpt2(p)
+        fresh_gpt2_texts += generate_gpt2(p, n=1 if args.smoke else 4)
     print(f"\nGenerated {len(fresh_gpt2_texts)} fresh GPT-2 XL texts")
     print("--- sample ---")
     print(fresh_gpt2_texts[0][:400])
