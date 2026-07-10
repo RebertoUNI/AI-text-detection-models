@@ -1,0 +1,68 @@
+[
+    {
+        "run_id": 0,
+        "params": {
+            "min_cluster_size": 50,
+            "min_samples": 15
+        },
+        "dbcv_score": 0.16159443979792837,
+        "n_clusters": 506,
+        "noise_ratio": 0.6154919584383046,
+        "is_best": false
+    },
+    {
+        "run_id": 1,
+        "params": {
+            "min_cluster_size": 150,
+            "min_samples": 30
+        },
+        "dbcv_score": 0.1438781793212135,
+        "n_clusters": 192,
+        "noise_ratio": 0.6117850520906952,
+        "is_best": false
+    },
+    {
+        "run_id": 2,
+        "params": {
+            "min_cluster_size": 500,
+            "min_samples": 30
+        },
+        "dbcv_score": 0.11920626331906531,
+        "n_clusters": 80,
+        "noise_ratio": 0.47827267864517076,
+        "is_best": false
+    },
+    {
+        "run_id": 3,
+        "params": {
+            "min_cluster_size": 1000,
+            "min_samples": 50
+        },
+        "dbcv_score": 0.8592868692845479,
+        "n_clusters": 3,
+        "noise_ratio": 0.02543838498058551,
+        "is_best": true
+    },
+    {
+        "run_id": 4,
+        "params": {
+            "min_cluster_size": 3000,
+            "min_samples": 50
+        },
+        "dbcv_score": 0.3932677221065602,
+        "n_clusters": 13,
+        "noise_ratio": 0.26800309301494124,
+        "is_best": false
+    },
+    {
+        "run_id": 5,
+        "params": {
+            "min_cluster_size": 5000,
+            "min_samples": 100
+        },
+        "dbcv_score": 0.35142337663805556,
+        "n_clusters": 12,
+        "noise_ratio": 0.2855939226136531,
+        "is_best": false
+    }
+]
