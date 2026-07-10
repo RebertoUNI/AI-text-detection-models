@@ -1,4 +1,4 @@
-category ID,category name,tone,text
+category ID,category name,tone,Prompt for GPT-2 XL
 0,Sports,Serious / Formal,The tactical execution observed during yesterday's championship match demonstrated unprecedented athletic endurance.
 0,Sports,Serious / Formal,A comprehensive analysis of professional athletes indicates that rigorous physical training optimization correlates with longevity.
 0,Sports,Serious / Formal,The psychological impact of home-stadium cheering significantly alters the performance metrics of competing teams.
