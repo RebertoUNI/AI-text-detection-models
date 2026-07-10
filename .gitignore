@@ -5,3 +5,4 @@ database exploration/inferenza deberta (test split)/results.csv
 database exploration/umap/50d/full_dataset/umap_full_results.npz
 database exploration/umap/50d/full_dataset/umap_full_dataset_50d.npz
 dataset
+data

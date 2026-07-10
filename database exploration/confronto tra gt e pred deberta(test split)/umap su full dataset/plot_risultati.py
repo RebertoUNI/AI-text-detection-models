@@ -179,3 +179,114 @@ summary_df = summary_df[['n_FP', 'n_FN', 'n_total_errors']].reset_index()
 summary_df.to_csv("summary_errori_per_cluster.csv", index=False)
 
 print("Elaborazione completata con successo! Trovi le immagini PNG e i file CSV nella directory corrente.")
+
+# ==========================================
+# Step 5 — Plot 5: Linee di livello (KDE) per Corretti vs Errori (Versione Migliorata)
+# ==========================================
+print("Generazione Plot 5 (Linee di livello KDE)...")
+
+from scipy.stats import gaussian_kde
+from matplotlib.lines import Line2D
+
+def _kde_grid(points, xlim, ylim, resolution=200):
+    """Calcola la griglia KDE per i punti 2D."""
+    x_min, x_max = xlim
+    y_min, y_max = ylim
+    
+    # Crea griglia
+    x_grid = np.linspace(x_min, x_max, resolution)
+    y_grid = np.linspace(y_min, y_max, resolution)
+    xx, yy = np.meshgrid(x_grid, y_grid)
+    
+    # Calcola KDE
+    try:
+        kde = gaussian_kde(points.T)
+        positions = np.vstack([xx.ravel(), yy.ravel()])
+        zz = kde(positions).reshape(xx.shape)
+        return xx, yy, zz
+    except Exception as e:
+        print(f"Errore nel calcolo KDE: {e}")
+        return None, None, None
+
+# Prepara i dati per i contorni
+correct_points = df[df['is_correct'] == True][['umap_x', 'umap_y']].values
+error_points = df[df['is_correct'] == False][['umap_x', 'umap_y']].values
+
+print(f"Punti corretti: {len(correct_points)}, Punti errati: {len(error_points)}")
+
+# Crea il plot
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Parametri per i contorni
+CONTOUR_COLORS = ['green', 'red']
+LABELS = ['Corretto', 'Errore']
+
+# Calcola e disegna i contorni per i punti corretti
+if len(correct_points) >= 3:  # Almeno 3 punti per KDE
+    xx, yy, zz = _kde_grid(correct_points, (-AXIS_MAX_X, AXIS_MAX_X), (-AXIS_MAX_Y, AXIS_MAX_Y), resolution=200)
+    if xx is not None:
+        # Usa livelli percentili per una migliore visualizzazione
+        z_flat = zz.flatten()
+        z_sorted = np.sort(z_flat[z_flat > 0])
+        if len(z_sorted) > 0:
+            # Livelli al 20%, 40%, 60%, 80% del massimo
+            levels = np.linspace(z_sorted.min(), z_sorted.max(), 6)
+            contour_correct = ax.contour(xx, yy, zz, 
+                                        levels=levels,
+                                        colors=CONTOUR_COLORS[0], 
+                                        linewidths=1.5, 
+                                        alpha=0.7)
+            # Aggiungi etichette ai contorni
+            ax.clabel(contour_correct, inline=True, fontsize=8, fmt='%1.0e')
+
+# Calcola e disegna i contorni per i punti errati
+if len(error_points) >= 3:
+    xx, yy, zz = _kde_grid(error_points, (-AXIS_MAX_X, AXIS_MAX_X), (-AXIS_MAX_Y, AXIS_MAX_Y), resolution=200)
+    if xx is not None:
+        z_flat = zz.flatten()
+        z_sorted = np.sort(z_flat[z_flat > 0])
+        if len(z_sorted) > 0:
+            levels = np.linspace(z_sorted.min(), z_sorted.max(), 6)
+            contour_error = ax.contour(xx, yy, zz, 
+                                      levels=levels,
+                                      colors=CONTOUR_COLORS[1], 
+                                      linewidths=1.5, 
+                                      alpha=0.7)
+            ax.clabel(contour_error, inline=True, fontsize=8, fmt='%1.0e')
+else:
+    print("Attenzione: Pochi punti errati per calcolare KDE. Mostro solo i punti.")
+    # Se non ci sono abbastanza punti errati, mostra i punti come scatter
+    if len(error_points) > 0:
+        ax.scatter(error_points[:, 0], error_points[:, 1], 
+                  c='red', s=20, alpha=0.8, label='Errori (punti)')
+
+# Scatter plot dei punti (semi-trasparenti per contesto)
+ax.scatter(df['umap_x'], df['umap_y'], 
+          c='gray', s=1, alpha=0.1, label='_nolegend_')
+
+# Legenda manuale
+legend_handles = [
+    Line2D([0], [0], color='green', linewidth=2, label='Corretto (KDE)'),
+    Line2D([0], [0], color='red', linewidth=2, label='Errore (KDE)')
+]
+if len(error_points) < 3 and len(error_points) > 0:
+    # Aggiungi legenda per i punti se non c'è KDE
+    legend_handles.append(plt.Line2D([0], [0], marker='o', color='w', 
+                                     markerfacecolor='red', markersize=8, label='Errori (punti)'))
+
+ax.legend(handles=legend_handles, fontsize=11, framealpha=0.8, loc='upper right')
+
+# Impostazione assi
+ax.set_xlim(-AXIS_MAX_X, AXIS_MAX_X)
+ax.set_ylim(-AXIS_MAX_Y, AXIS_MAX_Y)
+
+ax.set_title('Linee di livello KDE - Predizioni Corrette vs Errori', fontsize=13, fontweight="bold")
+ax.set_xlabel('UMAP X', fontsize=11)
+ax.set_ylabel('UMAP Y', fontsize=11)
+ax.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('plot5_kde_contours.png', dpi=300)
+plt.close()
+
+print("Plot 5 completato!")
