@@ -21,7 +21,7 @@ model.to(device)
 model.eval()
 
 # 3. Configurazione File I/O e Batch Size
-input_csv = "gpt2_prompts_2.csv"      # Metti qui il nome del tuo file CSV d'ingresso
+input_csv = "deberta_push_to_error/creazione frasi/gpt2_prompts_2.csv"      # Metti qui il nome del tuo file CSV d'ingresso
 output_csv = "out_gpt2_2_1.csv"  # Il file CSV che verrà creato
 BATCH_SIZE = 4                      # Puoi aumentare o diminuire in base alla memoria della tua GPU
 
