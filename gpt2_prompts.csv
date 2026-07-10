@@ -1,0 +1,131 @@
+Category ID,Category Name,Tone,Prompt for GPT-2 XL
+0,Sports,Casual / Informal,"Man, our whole team was cheering so loud when we finally won the championship match in overtime."
+0,Sports,Casual / Informal,I was literally losing my voice screaming from the bleachers during the final quarter of the game.
+0,Sports,Casual / Informal,"Honestly, watching that athlete break the world record live in the stadium gave me literal chills."
+0,Sports,Casual / Informal,"Bro, our fan section went absolutely insane when he hit that clutch three-pointer at the buzzer."
+0,Sports,Casual / Informal,"I can't believe we pulled off that win today, everyone was hugging and high-fiving on the field."
+0,Sports,Casual / Informal,My coach ran us through so many intense conditioning drills today that my legs are totally fried.
+0,Sports,Casual / Informal,"We were all packed into the front row, wearing our team jerseys and singing the victory chants."
+0,Sports,Casual / Informal,"That goalie made an absolutely insane save in the last ten seconds, and the whole crowd erupted."
+0,Sports,Casual / Informal,"I love the energy at live matches, there's nothing like thousands of fans screaming at the top of their lungs."
+0,Sports,Casual / Informal,"Our school team completely dominated the tournament today, and we celebrated by dumping Gatorade on the coach."
+1,Narrative / Fiction,Serious / Formal,"The ancient celestial clockwork began to shift, signaling the long-prophesied alignment of the twin suns."
+1,Narrative / Fiction,Serious / Formal,"Deep within the obsidian caverns, the dark sorcerer channeled the remaining embers of his dying magic."
+1,Narrative / Fiction,Serious / Formal,Commander Vance stared into the vast galactic abyss as the starship's primary propulsion engines went silent.
+1,Narrative / Fiction,Serious / Formal,"The gothic estate held secrets that the villagers spoke of only in hushed, terrified whispers after dusk."
+1,Narrative / Fiction,Serious / Formal,"A sudden fracture in the space-time continuum threw the unsuspecting travelers into an alternate, dystopian century."
+1,Narrative / Fiction,Serious / Formal,"The elven princess drew her glowing silver blade, prepared to defend the sacred grove from the oncoming horde."
+1,Narrative / Fiction,Serious / Formal,Dr. Aris discovered a mysterious biological anomaly buried deep beneath the Antarctic ice sheet that defied evolution.
+1,Narrative / Fiction,Serious / Formal,"Whispers of a vengeful phantom haunted the abandoned lighthouse, warning sailors away from the jagged cliffs."
+1,Narrative / Fiction,Serious / Formal,The mechanical dragon unleashed a torrent of azure flame across the metallic spires of the cyberpunk metropolis.
+1,Narrative / Fiction,Serious / Formal,An ominous shadow stretched across the desolate wasteland as the dark army marched toward the final sanctuary.
+1,Narrative / Fiction,Serious / Formal,"The alchemist carefully combined the volatile elements, hoping to unlock the secret to eternal vitality."
+1,Narrative / Fiction,Serious / Formal,"Stranded on an uncharted exoplanet, the colonial scouts encountered a bizarre, bioluminescent ecosystem."
+1,Narrative / Fiction,Serious / Formal,The ancient grimoire bound in dark leather contained incantations capable of tearing the fabric of reality.
+1,Narrative / Fiction,Serious / Formal,A cold dread gripped the detective as he realized the footsteps behind him did not belong to a mortal being.
+1,Narrative / Fiction,Serious / Formal,"The celestial spirits descended from the aurora, offering a final warning to the rulers of the mortal realm."
+1,Narrative / Fiction,Serious / Formal,Beneath the ruined palace lay a labyrinth inhabited by creatures forgotten by time itself.
+1,Narrative / Fiction,Serious / Formal,"The time-traveler materialized in the year 3042, only to find the Earth completely reclaimed by nature."
+1,Narrative / Fiction,Serious / Formal,A curse of eternal winter fell upon the kingdom the moment the sacred amulet was shattered.
+1,Narrative / Fiction,Serious / Formal,The cybernetic assassin tracked her target through the rain-slicked neon alleys of Neo-Tokyo.
+1,Narrative / Fiction,Serious / Formal,"Deep in the enchanted woods, the mythical guardian awoke to find its ancient pact had been broken."
+2,Cars,Casual / Informal,"Yo, have you seen the crazy high sticker prices on those new luxury electric sedans lately?"
+2,Cars,Casual / Informal,I'm thinking about trading in my old hatchback for a spacious family crossover or a compact SUV.
+2,Cars,Casual / Informal,"Honestly, spending that much money on a high-end sports car just seems totally wild to me."
+2,Cars,Casual / Informal,"Bro, my friend just bought a tuned-up luxury coupe and the exhaust note sounds absolutely insane."
+2,Cars,Casual / Informal,I've been browsing automotive forums all night trying to find the best deal on a reliable used vehicle.
+2,Cars,Casual / Informal,"These dealership markups on hybrid models are getting completely out of hand nowadays, it's annoying."
+2,Cars,Casual / Informal,"Dude, that sleek new sports utility vehicle looks so cool with the blacked-out rims and custom grill."
+2,Cars,Casual / Informal,I'm trying to decide if I should lease a luxury vehicle or just buy a standard commuter car.
+2,Cars,Casual / Informal,"The maintenance costs on European luxury cars will straight up drain your entire bank account, trust me."
+2,Cars,Casual / Informal,We took this massive all-wheel-drive crossover on a road trip and it handled the mountain roads like a charm.
+3,Climate / Energy,Casual / Informal,"Like, we seriously need to speed up the global energy transition if we want to stop global warming."
+3,Climate / Energy,Casual / Informal,It's wild how much carbon dioxide and greenhouse gas emissions are still pumping into the atmosphere every day.
+3,Climate / Energy,Casual / Informal,I'm trying to cut down my own carbon footprint by using way less electricity at home.
+3,Climate / Energy,Casual / Informal,"Honestly, relying so heavily on fossil fuels and coal just feels so outdated with all our new tech."
+3,Climate / Energy,Casual / Informal,Did you see that article about how rapidly the arctic ice caps are melting because of climate change?
+3,Climate / Energy,Casual / Informal,We really need to invest way more into solar power and wind turbines to clean up our energy grid.
+3,Climate / Energy,Casual / Informal,"It's crazy how extreme the weather has been getting lately because of rising global temperatures, it's scary."
+3,Climate / Energy,Casual / Informal,I wonder if electric vehicles and massive grid batteries will actually save us from the climate crisis.
+3,Climate / Energy,Casual / Informal,Companies need to stop greenwashing and actually start reducing their industrial carbon emissions for real.
+3,Climate / Energy,Casual / Informal,"Switching over to renewable energy sources is going to be a massive challenge, but we have no choice."
+4,DIY / Fabrics,Casual / Informal,"So I'm trying to completely re-upholster this vintage armchair I found, and the fabric layout is so tricky."
+4,DIY / Fabrics,Casual / Informal,I spent the whole weekend doing a little home DIY project to build some floating wooden shelves.
+4,DIY / Fabrics,Casual / Informal,"Man, my sewing machine kept jamming up while I was trying to stitch the hem on these heavy denim pants."
+4,DIY / Fabrics,Casual / Informal,I picked up some gorgeous linen and velvet textiles at the craft store for a cool pillow project.
+4,DIY / Fabrics,Casual / Informal,"Honestly, learning how to sew your own clothes is a total game changer and saves so much cash."
+4,DIY / Fabrics,Casual / Informal,I'm currently stripping down the old fabric off this dining chair to put some fresh modern upholstery on it.
+4,DIY / Fabrics,Casual / Informal,"Dude, measuring out the dimensions for this DIY accent wall took me way longer than I care to admit."
+4,DIY / Fabrics,Casual / Informal,I'm using a heavy-duty canvas material for this handmade tote bag project I'm working on right now.
+4,DIY / Fabrics,Casual / Informal,My fingers are so sore from pulling the fabric tight and stapling it onto the wooden furniture frame.
+4,DIY / Fabrics,Casual / Informal,"If you're into cool home DIY stuff, you should definitely try making your own custom curtains from scratch."
+5,Nutrition / Dietary Health,Casual / Informal,"Dude, trying to cut out all added sugar from my daily diet has been an absolute nightmare."
+5,Nutrition / Dietary Health,Casual / Informal,"I'm trying to keep track of my daily calorie intake, but counting every single macro is so tedious."
+5,Nutrition / Dietary Health,Casual / Informal,"Honestly, drinking that much caffeine every single morning can't be good for your long-term sleep habits."
+5,Nutrition / Dietary Health,Casual / Informal,I've been reading up on intuitive eating and how to build healthier long-term nutrition habits without starving.
+5,Nutrition / Dietary Health,Casual / Informal,"Bro, switching over to a high-protein diet completely changed my energy levels throughout the day."
+5,Nutrition / Dietary Health,Casual / Informal,It's crazy how many hidden calories are packed into those supposedly healthy green smoothies you buy.
+5,Nutrition / Dietary Health,Casual / Informal,"I'm trying to cut back on processed foods and focus on eating whole, nutrient-dense meals instead."
+5,Nutrition / Dietary Health,Casual / Informal,"That energy drink has a ridiculous amount of caffeine and sugar in it, it's a total crash waiting to happen."
+5,Nutrition / Dietary Health,Casual / Informal,Figuring out a balanced dietary routine that actually works for your body takes a ton of trial and error.
+5,Nutrition / Dietary Health,Casual / Informal,"I started reading the nutrition labels on everything I buy, and the sugar content is mind-blowing."
+6,Study / Learning,Casual / Informal,"Man, I've been grinding through my Anki flashcard decks all morning trying to memorize this vocab."
+6,Study / Learning,Casual / Informal,What are your favorite study techniques when you have to cram a ton of information in one night?
+6,Study / Learning,Casual / Informal,"Honestly, active recall and spaced repetition are the only learning strategies that actually work for me."
+6,Study / Learning,Casual / Informal,I'm trying to figure out a better system to organize my lecture notes and study guides before finals.
+6,Study / Learning,Casual / Informal,"Dude, my brain is completely fried after studying advanced calculus for five hours straight in the library."
+6,Study / Learning,Casual / Informal,Using mind maps has been a total life saver for helping me understand how all these complex concepts connect.
+6,Study / Learning,Casual / Informal,I need to find some new memorization tricks because standard rereading is just a massive waste of time.
+6,Study / Learning,Casual / Informal,Let's set up a study session this weekend so we can quiz each other on the upcoming exam material.
+6,Study / Learning,Casual / Informal,"I set up my Anki intervals perfectly, and it's making long-term retention so much easier than before."
+6,Study / Learning,Casual / Informal,"If you want to learn a new language fast, consistency and immersion are way better than just staring at textbooks."
+7,Movies / TV,Casual / Informal,"Seriously, the season finale of that new mystery TV series totally blew my mind, what a twist."
+7,Movies / TV,Casual / Informal,"I just watched that highly anticipated blockbuster movie, and honestly, the screenplay was a total mess."
+7,Movies / TV,Casual / Informal,"That new comedy show on Netflix is absolutely hilarious, I ended up binge-watching the whole thing last night."
+7,Movies / TV,Casual / Informal,I'm writing up a quick movie review on Letterboxd because I have so many thoughts on the cinematography.
+7,Movies / TV,Casual / Informal,"Dude, the acting in that historical drama series was incredible, they definitely deserve an Emmy for that."
+7,Movies / TV,Casual / Informal,"I hate when a great TV show gets canceled by the network on a massive, unresolved cliffhanger."
+7,Movies / TV,Casual / Informal,Let's look up some honest spoiler-free reviews before we spend money on movie tickets this weekend.
+7,Movies / TV,Casual / Informal,The special effects in that new sci-fi flick looked super cheap and completely ruined the immersion for me.
+7,Movies / TV,Casual / Informal,"I'm looking for a solid new TV series recommendation to watch, preferably something with a lot of suspense."
+7,Movies / TV,Casual / Informal,"That director always delivers incredible films, and his latest movie is absolute peak cinema in my opinion."
+8,Computing / Software,Casual / Informal,So I was trying to install this software update and it completely broke my local cloud storage sync.
+8,Computing / Software,Casual / Informal,Do you know an easy way to securely transfer these massive media files over to an external drive?
+8,Computing / Software,Casual / Informal,I'm trying to follow this technology how-to guide to set up a secure backup system for my computer.
+8,Computing / Software,Casual / Informal,"Man, this software application keeps crashing every single time I try to import a zipped folder of files."
+8,Computing / Software,Casual / Informal,I accidentally deleted some super important configuration files and now my whole operating system is tripping.
+8,Computing / Software,Casual / Informal,What's the best cloud service provider if I want to host a bunch of shared documents with my team?
+8,Computing / Software,Casual / Informal,I spent all afternoon installing clean software drivers to get my new graphics hardware to work properly.
+8,Computing / Software,Casual / Informal,This tech tutorial makes configuring your local network settings look way easier than it actually is.
+8,Computing / Software,Casual / Informal,I need to clear out some old system files because my hard drive is completely out of space.
+8,Computing / Software,Casual / Informal,"Setting up this open-source software was a huge headache, but the features are totally worth it."
+9,Video Games,Casual / Informal,"Bro, this new indie RPG I backed on Kickstarter is finally out and it's actually incredible."
+9,Video Games,Casual / Informal,I'm checking out some gaming reviews to see if this open-world title is worth sixty bucks.
+9,Video Games,Casual / Informal,"Honestly, the storyline in that retro indie game had me getting super emotional by the end."
+9,Video Games,Casual / Informal,I've been sinking way too many hours into this tactical RPG trying to level up my entire party.
+9,Video Games,Casual / Informal,Did you see that amazing new Kickstarter project for a tactical deck-building video game?
+9,Video Games,Casual / Informal,"The combat system in this fantasy RPG is so deep and satisfying, I can't stop playing it."
+9,Video Games,Casual / Informal,I love supporting passionate indie game developers because they always come up with the most unique ideas.
+9,Video Games,Casual / Informal,"This gaming review completely trashed the graphics, but the actual gameplay mechanics look insanely fun to me."
+9,Video Games,Casual / Informal,We should totally party up tonight and try to clear that high-level dungeon in the new online RPG.
+9,Video Games,Casual / Informal,That indie studio just dropped a surprise update that fixes all the annoying bugs from launch day.
+10,Crime / Justice,Casual / Informal,Did you see the breaking news about that crazy shooting incident down in the downtown district?
+10,Crime / Justice,Casual / Informal,"The police activity around the neighborhood last night was wild, apparently there were multiple squad cars."
+10,Crime / Justice,Casual / Informal,"I've been following this high-profile court case on the news, and the legal arguments are intense."
+10,Crime / Justice,Casual / Informal,The local crime reporting stream says they finally made an arrest in that high-profile robbery case.
+10,Crime / Justice,Casual / Informal,It's crazy how much police presence there was near the shopping mall after that major disturbance occurred.
+10,Crime / Justice,Casual / Informal,"The judge is delivering the final verdict in that massive fraud trial tomorrow morning, I'm tuned in."
+10,Crime / Justice,Casual / Informal,"According to the news report, the suspect was taken into custody without any further incidents."
+10,Crime / Justice,Casual / Informal,This true crime podcast does an amazing job breaking down the evidence presented during the actual trial.
+10,Crime / Justice,Casual / Informal,"There's a ton of police activity blocking off the main intersection, you should probably take a different route."
+10,Crime / Justice,Casual / Informal,The defense attorney made some really shocking claims during the opening statements of the court case today.
+11,Politics / Economics,Casual / Informal,"Man, all this nonstop coverage of the upcoming US elections is getting pretty exhausting to watch."
+11,Politics / Economics,Casual / Informal,What do you think about Trump's latest economic policy proposals regarding international trade tariffs?
+11,Politics / Economics,Casual / Informal,"The job market is looking pretty weird right now, everyone is talking about inflation and interest rates."
+11,Politics / Economics,Casual / Informal,"Honestly, reading through political commentary on social media just puts me in a terrible mood."
+11,Politics / Economics,Casual / Informal,It feels like the current economic issues are making it harder and harder for young people to find good jobs.
+11,Politics / Economics,Casual / Informal,I'm trying to understand how these new tax regulations will actually affect small business owners long-term.
+11,Politics / Economics,Casual / Informal,"Everyone is debating the election polls, but honestly, those numbers change completely every single week."
+11,Politics / Economics,Casual / Informal,This economic analyst gave a really interesting breakdown on how global supply chains impact local inflation.
+11,Politics / Economics,Casual / Informal,Political debates nowadays just feel like a giant shouting match instead of actual discussions about real policies.
+11,Politics / Economics,Casual / Informal,"The latest jobs report came out today, and it looks like the employment numbers are finally stabilizing a bit."
