@@ -1,7 +1,7 @@
 import pandas as pd
 
 # 1. Carica il file CSV
-df = pd.read_csv('deberta_push_to_error/results_1.csv')
+df = pd.read_csv('deberta_push_to_error/results_2_1.csv')
 
 # 2. CORREZIONE: Trasforma la colonna 'confidence' da stringa (es. "79.88%") a numero (es. 79.88)
 # Usiamo .str.rstrip('%') per togliere il simbolo alla fine e .astype(float) per convertirlo

@@ -22,7 +22,7 @@ model.eval()
 
 # 3. Configurazione File I/O e Batch Size
 input_csv = "deberta_push_to_error/creazione frasi/gpt2_prompts_2.csv"      # Metti qui il nome del tuo file CSV d'ingresso
-output_csv = "out_gpt2_2_1.csv"  # Il file CSV che verrà creato
+output_csv = "out_gpt2_2_2.csv"  # Il file CSV che verrà creato
 BATCH_SIZE = 4                      # Puoi aumentare o diminuire in base alla memoria della tua GPU
 
 # Carichiamo i dati dal CSV
@@ -45,10 +45,10 @@ for i in range(0, len(df), BATCH_SIZE):
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=200,
+            max_new_tokens=250,
             do_sample=True,
             top_k=40,
-            temperature=0.7,
+            temperature=1.5,
             pad_token_id=tokenizer.eos_token_id,
         )
     
