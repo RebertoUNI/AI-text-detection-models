@@ -7,6 +7,7 @@ from datasets import load_dataset
 from sklearn.metrics import pairwise_distances
 from pathlib import Path
 import os
+from sklearn.preprocessing import normalize
 
 
 # Configurazione logging per HPC
@@ -71,6 +72,9 @@ def load_data():
 def tune_hdbscan(embeddings, n_jobs=8):
     logging.info("Inizio Hyperparameter Tuning per HDBSCAN...")
     
+    embeddings_normalized = normalize(embeddings, norm='l2')
+    logging.info("Embeddings normalizzati (L2) per compatibilità con BallTree.")
+
     param_grid = [
         # --- ESPLORAZIONE GRANULARE (Cluster piccoli e dettagliati) ---
         {'min_cluster_size': 50, 'min_samples': 15},   # Estremo dettaglio
@@ -96,13 +100,13 @@ def tune_hdbscan(embeddings, n_jobs=8):
         clusterer = hdbscan.HDBSCAN(
             min_cluster_size=params['min_cluster_size'],
             min_samples=params['min_samples'],
-            gen_min_span_tree=True,
+            gen_min_span_tree=True,   # necessario per relative_validity_
             core_dist_n_jobs=n_jobs,
-            metric='cosine'
+            metric='euclidean'        # FIX: euclidean su L2-norm ≡ cosine
         )
-        clusterer.fit(embeddings)
+        clusterer.fit(embeddings_normalized)
         
-        score = 0
+        score = float(clusterer.relative_validity_)
         elapsed = time.time() - start_time
         logging.info(f"Score ottenuto: {score:.4f} (Tempo: {elapsed:.1f}s)")
 
@@ -186,4 +190,5 @@ if __name__ == "__main__":
     hpc_cpus = int(os.environ.get('SLURM_CPUS_PER_TASK', 8))
     logging.info(f"Utilizzo rilevato di {hpc_cpus} CPU per HDBSCAN.")
     all_results, best_idx = tune_hdbscan(umap_embeddings, n_jobs=hpc_cpus)
-    extract_prototypes_and_save(all_results, best_idx, umap_embeddings, texts)
+    embeddings_norm = normalize(umap_embeddings, norm='l2')
+    extract_prototypes_and_save(all_results, best_idx, embeddings_norm, texts)
