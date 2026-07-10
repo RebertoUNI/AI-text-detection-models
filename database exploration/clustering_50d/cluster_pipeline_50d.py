@@ -20,7 +20,7 @@ logging.basicConfig(
 def load_data():
     logging.info("Caricamento UMAP embeddings e metadati dal file .npz...")
     # Carichiamo il file compresso
-    data = np.load('umap/50d/full_dataset/umap_full_results.npz')
+    data = np.load('database exploration/umap/50d/full_dataset/umap_full_dataset_50d.npz')
     umap_embeddings = data['embeddings_50d']
     labels = data['labels']
     splits_tracker = data['splits'] # Array con scritto 'train', 'val', o 'test' per ogni punto

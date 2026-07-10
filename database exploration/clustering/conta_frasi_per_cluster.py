@@ -38,4 +38,4 @@ def stampa_frequenze(file_path):
 # Esempio di utilizzo
 if __name__ == "__main__":
     # Sostituisci con il percorso del tuo file
-    stampa_frequenze("/Users/roberto/Università/Deep learning/AI-text-detection-models/database exploration/clustering/full_dataset/hdbscan_labels_run3.npy")
+    stampa_frequenze("database exploration/clustering_50d/out/hdbscan_labels_run5.npy")
