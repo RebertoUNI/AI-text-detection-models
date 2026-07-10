@@ -93,7 +93,7 @@ def main():
     dataset = Dataset.from_csv(args.csv_path)
     
     # Controllo presenza colonna text
-    if "text" not in dataset.columns:
+    if "text" not in dataset.column_names:
         raise KeyError("Nel CSV deve essere presente la colonna 'text'.")
 
     # Filtro righe vuote
