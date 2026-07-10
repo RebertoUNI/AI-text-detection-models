@@ -21,8 +21,8 @@ model.to(device)
 model.eval()
 
 # 3. Configurazione File I/O e Batch Size
-input_csv = "gpt2_prompts.csv"      # Metti qui il nome del tuo file CSV d'ingresso
-output_csv = "out_gpt2.csv"  # Il file CSV che verrà creato
+input_csv = "gpt2_prompts_2.csv"      # Metti qui il nome del tuo file CSV d'ingresso
+output_csv = "out_gpt2_2.csv"  # Il file CSV che verrà creato
 BATCH_SIZE = 4                      # Puoi aumentare o diminuire in base alla memoria della tua GPU
 
 # Carichiamo i dati dal CSV
@@ -67,7 +67,7 @@ for i in range(0, len(df), BATCH_SIZE):
 
 # 5. Sostituzione della colonna e Salvataggio
 # Sostituiamo il vecchio testo dei prompt con il testo generato
-df["Prompt per GPT-2 XL"] = all_generated_texts
+df["Prompt for GPT-2 XL"] = all_generated_texts
 
 # Rinominiamo la colonna per correttezza, mantenendo lo stesso identico formato del CSV
 df = df.rename(columns={"Prompt for GPT-2 XL": "Output GPT-2 XL"})

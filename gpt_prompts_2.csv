@@ -1,0 +1,131 @@
+category ID,category name,tone,Prompt for GPT-2 XL
+0,Sports,Serious / Formal,The tactical execution observed during yesterday's championship match demonstrated unprecedented athletic endurance.
+0,Sports,Serious / Formal,A comprehensive analysis of professional athletes indicates that rigorous physical training optimization correlates with longevity.
+0,Sports,Serious / Formal,The psychological impact of home-stadium cheering significantly alters the performance metrics of competing teams.
+0,Sports,Serious / Formal,Sports analysts argue that the upcoming tournament will test the physical limitations of the reigning champions.
+0,Sports,Serious / Formal,Statistical records from the latest international track and field events reveal a trend of breaking historic records.
+0,Sports,Serious / Formal,The devotion of dedicated fans often serves as a quantifiable variable in franchise revenue and team morale.
+0,Sports,Serious / Formal,A formal evaluation of defensive strategies in professional football highlights the evolution of modern coaching.
+0,Sports,Serious / Formal,Elite athletes must maintain strict physical regimens to sustain peak competitive advantages throughout the grueling season.
+0,Sports,Serious / Formal,The final match of the tournament concluded with an extraordinary display of coordination and strategic play.
+0,Sports,Serious / Formal,Observers noted that the enthusiastic support from the spectators provided a measurable psychological boost to the squad.
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"So I was walking through the woods at night, and out of nowhere, this weird glowing portal just opened up..."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Dude, you seriously won’t believe the crazy story my grandpa told me about this haunted house down the street."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Picture this: a spaceship just casually lands in your backyard, and a tiny green alien steps out asking for sugar."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Honestly, I always thought magic was a total joke until my best friend accidentally turned our teacher into a toad."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"We found this super creepy, dusty old diary in the attic, and the last entry was dated tomorrow."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Man, that cyberpunk city was completely wild, with neon lights everywhere and flying cars zooming past the skyscrapers."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Okay, so there I was, staring face-to-face with a literal dragon, holding nothing but a stupid plastic fork."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,I woke up this morning and realized everyone in my town had completely vanished into thin air.
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Bro, the shadow under my bed just started talking to me, and it actually has a pretty funny sense of humor."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,We were exploring those ancient ruins by the beach when the ground cracked open and we fell into a hidden world.
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,Imagine waking up one day and discovering you can completely pause time just by snapping your fingers.
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"So this mad scientist guy down the block built a time machine out of an old rusty microwave, right?"
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"I swear I saw a ghost chilling in the kitchen making coffee at 3 AM, looking totally exhausted."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"That dark fantasy kingdom was pretty brutal, filled with rogues, wizards, and monsters hiding in every single corner."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"We went looking for a shortcut through the cemetery, which was honestly the worst idea we've ever had."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,My computer screen just started glitching out and typing creepy messages about the end of the world on its own.
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"The zombie apocalypse hit our high school right during midterms, which kinda saved my math grade, to be honest."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"Suddenly, this mysterious elf warrior bursts through the window and yells that the dark lord has found us."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,"I bought a vintage mirror at a flea market, but the reflection inside isn't moving when I move."
+1,Narrative / Fiction,Very Colloquial / Casual / Informal,So we took a wrong turn on the highway and ended up in this eerie town that isn't even on the map.
+2,Cars,Serious / Formal,The global automotive market has experienced a significant fluctuation in premium luxury vehicle pricing.
+2,Cars,Serious / Formal,A comparative study of modern crossovers reveals distinct advantages in terms of fuel efficiency and safety ratings.
+2,Cars,Serious / Formal,Automotive manufacturers are adjusting production lines to accommodate the rising consumer demand for mid-size SUVs.
+2,Cars,Serious / Formal,The valuation of vintage luxury sedans remains steady due to meticulous engineering and limited production numbers.
+2,Cars,Serious / Formal,An analytical review of contemporary vehicle types demonstrates a shift toward aerodynamic efficiency and structural integrity.
+2,Cars,Serious / Formal,Industry experts discuss the economic implications of rising material costs on standard consumer automobile retail prices.
+2,Cars,Serious / Formal,The mechanical sophistication of modern luxury sports cars necessitates specialized maintenance and high-grade components.
+2,Cars,Serious / Formal,Consumer reports indicate that cargo space and safety features are primary drivers in crossover segment growth.
+2,Cars,Serious / Formal,A thorough inspection of the drivetrain reveals the advanced engineering utilized in high-performance vehicular platforms.
+2,Cars,Serious / Formal,The ongoing discussion regarding automotive market trends centers heavily on luxury vehicle depreciation rates.
+3,Climate / Energy,Serious / Formal,The mitigation of industrial carbon dioxide emissions remains a primary objective for international environmental policy.
+3,Climate / Energy,Serious / Formal,A comprehensive assessment of global warming indicators highlights the urgent need for systemic energy transition frameworks.
+3,Climate / Energy,Serious / Formal,Statistical data confirms that heavy reliance on fossil fuels significantly correlates with rising atmospheric greenhouse gases.
+3,Climate / Energy,Serious / Formal,The implementation of renewable energy infrastructure requires substantial capital investment and regulatory support.
+3,Climate / Energy,Serious / Formal,Scientific research documents the measurable impact of carbon emissions on oceanic temperature escalation.
+3,Climate / Energy,Serious / Formal,The transition from traditional coal-fired power plants to sustainable alternatives presents complex economic challenges.
+3,Climate / Energy,Serious / Formal,Policy analysts evaluate the efficacy of carbon taxing as a mechanism to curb industrial pollutant output.
+3,Climate / Energy,Serious / Formal,The study of global climate patterns reveals accelerated melting trajectories in polar ice sheets.
+3,Climate / Energy,Serious / Formal,Developing scalable solutions for carbon capture and storage is vital to achieving long-term sustainability targets.
+3,Climate / Energy,Serious / Formal,Energy sectors worldwide are reallocating resources to enhance the efficiency of solar and wind generation technologies.
+4,DIY / Fabrics,Serious / Formal,The restoration of antique furniture requires a precise understanding of traditional upholstery techniques and material tension.
+4,DIY / Fabrics,Serious / Formal,A professional guide to textile selection emphasizes the structural differences between woven and knitted fabrics.
+4,DIY / Fabrics,Serious / Formal,Executing home DIY structural modifications necessitates strict adherence to local building codes and material specifications.
+4,DIY / Fabrics,Serious / Formal,Advanced sewing methods involve intricate pattern drafting and the strategic application of structural interfacing.
+4,DIY / Fabrics,Serious / Formal,The durability of interior textiles depends heavily on the fiber composition and density of the chosen fabric.
+4,DIY / Fabrics,Serious / Formal,A systematic approach to residential drapery fabrication ensures proper alignment and aesthetic symmetry.
+4,DIY / Fabrics,Serious / Formal,Woodworking and upholstery integration demands specialized adhesive agents and heavy-duty mechanical fasteners.
+4,DIY / Fabrics,Serious / Formal,The evaluation of tensile strength in synthetic sewing threads is critical for high-stress textile applications.
+4,DIY / Fabrics,Serious / Formal,Home improvement initiatives regarding insulation optimization involve precise measurement and material cutting.
+4,DIY / Fabrics,Serious / Formal,Understanding the grainline of a textile is essential for avoiding distortion during complex garment assembly.
+5,Nutrition / Dietary Health,Serious / Formal,Clinical trials indicate that excessive consumption of refined sugar correlates directly with metabolic dysfunction.
+5,Nutrition / Dietary Health,Serious / Formal,An objective assessment of daily caffeine intake reveals its distinct physiological impact on sleep architecture.
+5,Nutrition / Dietary Health,Serious / Formal,The precise tracking of daily caloric expenditure is a foundational component of evidence-based weight management.
+5,Nutrition / Dietary Health,Serious / Formal,Nutritional epidemiology demonstrates that balanced macronutrient distribution supports long-term cardiovascular health.
+5,Nutrition / Dietary Health,Serious / Formal,Dietary guidelines emphasize the restriction of processed fats to lower systemic inflammatory markers.
+5,Nutrition / Dietary Health,Serious / Formal,The metabolic processing of complex carbohydrates differs significantly from that of simple saccharides.
+5,Nutrition / Dietary Health,Serious / Formal,A comprehensive review of dietary habits confirms that micronutrient density is essential for cellular repair.
+5,Nutrition / Dietary Health,Serious / Formal,The physiological consequences of prolonged caloric restriction involve adaptive thermogenesis and hormonal shifts.
+5,Nutrition / Dietary Health,Serious / Formal,Investigating the nutritional profile of plant-based proteins reveals varying amino acid completeness scores.
+5,Nutrition / Dietary Health,Serious / Formal,Scientific consensus supports the implementation of high-fiber diets to optimize gastrointestinal microbiome diversity.
+6,Study / Learning,Serious / Formal,"The application of spaced repetition systems, such as Anki, significantly enhances long-term memory retention."
+6,Study / Learning,Serious / Formal,Cognitive psychology research demonstrates that active recall strategies outperform passive review methods during examinations.
+6,Study / Learning,Serious / Formal,An analytical study of effective learning methodologies highlights the role of cognitive load optimization.
+6,Study / Learning,Serious / Formal,The neurobiological basis of memory consolidation requires structured intervals of study and adequate rest.
+6,Study / Learning,Serious / Formal,Implementing pedagogical frameworks like the Feynman Technique facilitates deep conceptual understanding of complex subjects.
+6,Study / Learning,Serious / Formal,The correlation between organized study schedules and academic performance metrics remains highly significant.
+6,Study / Learning,Serious / Formal,An evaluation of mnemonic devices reveals their efficacy in the rapid memorization of unstructured datasets.
+6,Study / Learning,Serious / Formal,Academic institutions encourage the adoption of metacognitive strategies to monitor and regulate individual learning progress.
+6,Study / Learning,Serious / Formal,The optimization of flashcard design within computerized learning platforms prevents cognitive fatigue during study sessions.
+6,Study / Learning,Serious / Formal,A rigorous examination of study habits indicates that distributed practice yields superior mastery compared to cramming.
+7,Movies / TV,Serious / Formal,The cinematic structure of the award-winning film presents a nuanced exploration of contemporary societal conflict.
+7,Movies / TV,Serious / Formal,A formal critical review of the television series highlights its innovative narrative pacing and character development.
+7,Movies / TV,Serious / Formal,The evolution of cinematography in modern media reflects significant technological advancements in digital rendering.
+7,Movies / TV,Serious / Formal,Entertainment industry analysts observe a distinct shift in consumer preferences toward serialized television dramas.
+7,Movies / TV,Serious / Formal,The thematic consistency observed throughout the director's filmography reinforces their distinct artistic auteur status.
+7,Movies / TV,Serious / Formal,A comprehensive critique of the screenplay reveals a complex architectural framework underlying the dialogue.
+7,Movies / TV,Serious / Formal,The economic performance of independent films relies heavily on critical reception at international film festivals.
+7,Movies / TV,Serious / Formal,"Television networks are increasingly allocating high budgets to produce premium, limited-run documentary series."
+7,Movies / TV,Serious / Formal,An objective evaluation of the performance notes an exceptional execution of dramatic tension by the lead actor.
+7,Movies / TV,Serious / Formal,The structural integrity of a film's third act dictates its overall thematic and narrative success among critics.
+8,Computing / Software,Serious / Formal,The successful installation of enterprise software requires rigorous compatibility verification with the underlying operating system.
+8,Computing / Software,Serious / Formal,A technical overview of cloud storage architecture emphasizes data redundancy and end-to-end encryption protocols.
+8,Computing / Software,Serious / Formal,Optimizing file system configurations prevents data fragmentation and ensures rapid read and write execution times.
+8,Computing / Software,Serious / Formal,The implementation of automated backup systems protects critical infrastructure from catastrophic data loss.
+8,Computing / Software,Serious / Formal,A systematic approach to software troubleshooting involves isolating error logs and verifying dependencies.
+8,Computing / Software,Serious / Formal,Network administrators must configure access control lists to secure confidential files stored on local servers.
+8,Computing / Software,Serious / Formal,The migration of legacy databases to cloud environments demands precise schema mapping and validation testing.
+8,Computing / Software,Serious / Formal,A comprehensive guide to command-line operations details the syntax required for bulk file permission modification.
+8,Computing / Software,Serious / Formal,Software developers emphasize the necessity of clean code documentation to streamline subsequent updates and patches.
+8,Computing / Software,Serious / Formal,The architecture of distributed software systems relies on robust application programming interfaces for seamless integration.
+9,Video Games,Serious / Formal,The intricate mechanics of modern role-playing games require complex computational balancing of player attributes.
+9,Video Games,Serious / Formal,An analytical review of the indie gaming sector reveals a strong reliance on crowdsourced funding mechanisms.
+9,Video Games,Serious / Formal,The architectural design of open-world environments significantly impacts the player's cognitive immersion and pathfinding.
+9,Video Games,Serious / Formal,Kickstarter campaigns for independent video games demonstrate a shifting dynamic in video game publishing economies.
+9,Video Games,Serious / Formal,A formal evaluation of game narrative structures highlights the challenges of branching dialogue choices.
+9,Video Games,Serious / Formal,"The implementation of procedural generation algorithms allows indie developers to create vast, expansive digital landscapes."
+9,Video Games,Serious / Formal,Critical reception of the newly released tactical RPG centers heavily on its punishing difficulty and strategic depth.
+9,Video Games,Serious / Formal,The monetization models of contemporary interactive entertainment are undergoing scrutiny by regulatory bodies.
+9,Video Games,Serious / Formal,A technical analysis of the game engine demonstrates optimized asset rendering pipelines for high frame rates.
+9,Video Games,Serious / Formal,The historical evolution of indie game design showcases an increasing emphasis on minimalist aesthetic choices.
+10,Crime / Justice,Serious / Formal,The judicial proceedings regarding the recent high-profile indictment are scheduled to commence in federal court.
+10,Crime / Justice,Serious / Formal,A statistical analysis of municipal law enforcement data reveals a localized decrease in violent crime indices.
+10,Crime / Justice,Serious / Formal,The investigative report details the meticulous forensic evidence compiled by police detectives at the crime scene.
+10,Crime / Justice,Serious / Formal,Legal scholars argue that the supreme court's ruling will establish a significant precedent for criminal jurisprudence.
+10,Crime / Justice,Serious / Formal,The rapid intervention of local law enforcement units resulted in the immediate arrest of the suspected individual.
+10,Crime / Justice,Serious / Formal,A comprehensive study of justice system reforms examines the socioeconomic impacts of mandatory minimum sentences.
+10,Crime / Justice,Serious / Formal,The official statement released by the department outlines the sequence of events leading to the officer-involved shooting.
+10,Crime / Justice,Serious / Formal,Public defenders emphasize the absolute necessity of preserving constitutional protections during criminal trials.
+10,Crime / Justice,Serious / Formal,The grand jury has convened to review testimony and determine whether sufficient probable cause exists for prosecution.
+10,Crime / Justice,Serious / Formal,Criminologists evaluate the correlation between community policing initiatives and public trust in urban areas.
+11,Politics / Economics,Serious / Formal,The macroeconomic indicators suggest that shifting labor dynamics will heavily influence the upcoming US election cycle.
+11,Politics / Economics,Serious / Formal,An analytical assessment of the administration's fiscal policy outlines the projected impacts on national job growth.
+11,Politics / Economics,Serious / Formal,Political commentators argue that shifting voter demographics in key states will decide the legislative majority.
+11,Politics / Economics,Serious / Formal,The economic consequences of trade tariff implementation remain a central point of debate among prominent analysts.
+11,Politics / Economics,Serious / Formal,A formal review of regulatory frameworks evaluates their efficacy in mitigating inflation within the corporate sector.
+11,Politics / Economics,Serious / Formal,The intersection of political rhetoric and market stability often results in localized equity market fluctuations.
+11,Politics / Economics,Serious / Formal,Statistical evidence from the labor department indicates a stabilization of unemployment rates across key industries.
+11,Politics / Economics,Serious / Formal,The candidates' proposed economic platforms diverge significantly regarding tax reform and infrastructure spending.
+11,Politics / Economics,Serious / Formal,An objective analysis of geopolitical agreements highlights their profound influence on domestic supply chain stability.
+11,Politics / Economics,Serious / Formal,The ongoing legislative debate regarding social welfare allocations carries deep fiscal implications for the next decade.
