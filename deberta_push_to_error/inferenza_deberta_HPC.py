@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 def parse_args():
     parser = argparse.ArgumentParser(description="Inference paradetect-deberta-v3-lora con Incertezza")
     parser.add_argument("--model_id",   default="srikanthgali/paradetect-deberta-v3-lora")
-    parser.add_argument("--csv_path",   default="out_gpt2_2_2.csv", help="Percorso del tuo file CSV")
+    parser.add_argument("--csv_path",   default="deberta_push_to_error/out_gpt2_3.csv", help="Percorso del tuo file CSV")
     parser.add_argument("--label_col",  default="tone", help="Colonna da usare come ground_truth (es. tone o category ID)")
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--max_length", type=int, default=512)
@@ -38,7 +38,7 @@ def parse_args():
 
 def make_collate_fn(tokenizer, max_length, label_col):
     def collate_fn(batch):
-        texts  = [str(item["text"]) if item["text"] is not None else "" for item in batch]
+        texts  = [str(item["text_in"]) if item["text_in"] is not None else "" for item in batch]
         # Se la colonna label non esiste o è vuota, mettiamo un valore fittizio "N/A"
         labels = [item.get(label_col, "N/A") for item in batch]
         
