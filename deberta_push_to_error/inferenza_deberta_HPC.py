@@ -38,7 +38,7 @@ def parse_args():
 
 def make_collate_fn(tokenizer, max_length, label_col):
     def collate_fn(batch):
-        texts  = [str(item["text_in"]) if item["text_in"] is not None else "" for item in batch]
+        texts  = [str(item["text"]) if item["text"] is not None else "" for item in batch]
         # Se la colonna label non esiste o è vuota, mettiamo un valore fittizio "N/A"
         labels = [item.get(label_col, "N/A") for item in batch]
         
