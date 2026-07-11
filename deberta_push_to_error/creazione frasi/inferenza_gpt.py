@@ -21,8 +21,8 @@ model.to(device)
 model.eval()
 
 # 3. Configurazione File I/O e Batch Size
-input_csv = "deberta_push_to_error/creazione frasi/gpt2_prompts_2.csv"      # Metti qui il nome del tuo file CSV d'ingresso
-output_csv = "out_gpt2_2_2.csv"  # Il file CSV che verrà creato
+input_csv = "deberta_push_to_error/creazione frasi/gpt2_prompts_3.csv"      # Metti qui il nome del tuo file CSV d'ingresso
+output_csv = "deberta_push_to_error/out_gpt2_3.csv"  # Il file CSV che verrà creato
 BATCH_SIZE = 4                      # Puoi aumentare o diminuire in base alla memoria della tua GPU
 
 # Carichiamo i dati dal CSV
@@ -70,7 +70,7 @@ for i in range(0, len(df), BATCH_SIZE):
 df["Prompt for GPT-2 XL"] = all_generated_texts
 
 # Rinominiamo la colonna per correttezza, mantenendo lo stesso identico formato del CSV
-df = df.rename(columns={"Prompt for GPT-2 XL": "Output GPT-2 XL"})
+df = df.rename(columns={"Prompt for GPT-2 XL": "text_in"})
 
 # Salvataggio su file CSV (senza l'indice di pandas per mantenere il formato pulito)
 df.to_csv(output_csv, index=False, encoding="utf-8")

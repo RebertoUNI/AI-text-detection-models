@@ -1,0 +1,13 @@
+category ID,category name,LABEL_0,LABEL_1,media_confidence
+0,Sports,1,9,78.94500000000001
+1,Narrative / Fiction,0,20,80.08250000000001
+2,Cars,1,9,73.944
+3,Climate / Energy,0,10,79.214
+4,DIY / Fabrics,1,9,66.378
+5,Nutrition / Dietary Health,1,9,81.592
+6,Study / Learning,0,10,71.938
+7,Movies / TV,1,9,80.146
+8,Computing / Software,0,10,76.534
+9,Video Games,0,10,80.75800000000001
+10,Crime / Justice,0,10,84.014
+11,Politics / Economics,0,10,83.724
