@@ -1,7 +1,7 @@
 import pandas as pd
 
 # 1. Carica il file CSV
-df = pd.read_csv('deberta_push_to_error/results_2_2.csv')
+df = pd.read_csv('deberta_push_to_error/results_3.csv')
 
 # 2. CORREZIONE: Trasforma la colonna 'confidence' da stringa (es. "79.88%") a numero (es. 79.88)
 # Usiamo .str.rstrip('%') per togliere il simbolo alla fine e .astype(float) per convertirlo
@@ -33,4 +33,4 @@ risultato_finale = pd.merge(conteggio_labels, media_confidenza, on=['category ID
 print(risultato_finale)
 
 # (Opzionale) Salva il risultato in un nuovo file CSV
-risultato_finale.to_csv('risultato_categorie.csv', index=False)
+risultato_finale.to_csv('deberta_push_to_error/risultato_categorie_3.csv', index=False)
